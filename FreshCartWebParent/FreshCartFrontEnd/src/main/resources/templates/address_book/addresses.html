@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head('Your Address Book', 'none')"/>
+
+<body>
+<div class="container-fluid"
+     th:with="redirectedFromCheckoutPage = ${param.redirect != null && param.redirect[0] == 'checkout'}">
+    <div th:replace="navigation :: header_menu"></div>
+    <div th:replace="navigation :: search_nav"></div>
+    <div th:replace="navigation :: category_nav"></div>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
+                    <div class="pt-10 pe-lg-10">
+                        <ul class="nav flex-column nav-pills nav-pills-dark">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/account_details}">
+                                    <i class="feather-icon icon-user me-2"></i>Personal info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a aria-current="page" class="nav-link" th:href="@{/orders}">
+                                    <i class="feather-icon icon-shopping-bag me-2"></i>Your Orders
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/address_book}">
+                                    <i class="feather-icon icon-map-pin me-2"></i>Address
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/reviews}">
+                                    <i class="feather-icon icon-star me-2"></i>Reviews
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <hr>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript: document.logoutForm.submit()">
+                                    <i class="feather-icon icon-log-out me-2"></i>Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-lg-9 col-md-8 col-12">
+                    <div class="py-6 p-md-6 p-lg-10">
+                        <div class="d-flex justify-content-between mb-6">
+                            <h2 class="mb-0"
+                                th:text="${redirectedFromCheckoutPage ? 'Choose a Shipping Address' : 'Your Address Book'}">
+                                Address</h2>
+                            <a th:unless="${param.redirect}" th:href="@{/address_book/new}"
+                               class="btn btn-outline-primary">Add a new address</a>
+                            <a th:if="${redirectedFromCheckoutPage}" th:href="@{/address_book/new(redirect=checkout)}"
+                               class="btn btn-outline-primary">Add a new address</a>
+                        </div>
+                        <div class="row">
+                            <!-- Primary Address -->
+                            <div class="col-lg-5 col-xxl-4 col-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body p-6">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <label class="text-dark fw-semi-bold">Primary Address</label>
+                                            <th:block th:if="${usePrimaryAddressAsDefault}">
+                                                <span class="badge text-bg-info rounded-pill">Default</span>
+                                            </th:block>
+                                            <th:block th:unless="${usePrimaryAddressAsDefault}">
+                                                <a th:unless="${param.redirect}" th:href="@{'/address_book/default/0'}"
+                                                   class="link-primary">Set as Default</a>
+                                            </th:block>
+                                        </div>
+                                        <p class="mb-6">[[${customer}]]</p>
+                                        <div class="mt-4">
+                                            <a th:unless="${param.redirect}"
+                                               th:href="@{/account_details(redirect=address_book)}"
+                                               class="text-inherit">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other Addresses -->
+                            <th:block th:each="address, status: ${listAddresses}">
+                                <div class="col-lg-5 col-xxl-4 col-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body p-6">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <label class="text-dark fw-semi-bold">Address #[[${status.count +
+                                                    1}]]</label>
+                                                <th:block th:if="${address.defaultForShipping}">
+                                                    <span class="badge text-bg-info rounded-pill">Default</span>
+                                                </th:block>
+                                                <th:block th:unless="${address.defaultForShipping}">
+                                                    <a th:href="@{'/address_book/default/' + ${address.id}}"
+                                                       class="link-primary">Set as Default</a>
+                                                </th:block>
+                                            </div>
+                                            <p class="mb-6">[[${address}]]</p>
+                                            <div class="mt-4">
+                                                <a th:href="@{'/address_book/edit/' + ${address.id}}"
+                                                   class="text-inherit">Edit</a>
+                                                <a class="text-danger ms-3 linkDelete" th:entityId="${address.id}"
+                                                   th:href="@{'/address_book/delete/' + ${address.id}}">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div th:replace="fragments :: confirm_modal"></div>
+    <div th:replace="navigation :: footer_menu"></div>
+</div>
+<script th:if="${message != null}">
+    document.addEventListener('DOMContentLoaded', function () {
+        new Notify({
+            status: 'success',
+            text: '[[${message}]]',
+            effect: 'fade',
+            speed: 300,
+            customClass: null,
+            customIcon: null,
+            showIcon: true,
+            showCloseButton: true,
+            autoclose: true,
+            autotimeout: 3000,
+            gap: 20,
+            distance: 20,
+            type: 1,
+            position: 'right top'
+        })
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("Modal element:", $("#confirmModal").length); // Nên in ra 1 nếu modal tồn tại
+        console.log("Delete links:", $(".linkDelete").length); // Nên in ra số lượng nút delete
+
+        $(".linkDelete").on("click", function (evt) {
+            console.log("Delete button clicked");
+            evt.preventDefault();
+            console.log("Link href:", $(this).attr("href"));
+            console.log("Entity ID:", $(this).attr("entityId"));
+            showDeleteConfirmModal($(this), 'address');
+        });
+    });
+
+    function showDeleteConfirmModal(link, entityName) {
+        let entityId = link.attr("entityId");
+        $("#yesButton").attr("href", link.attr("href"));
+        $("#confirmText").text("Are you sure you want to delete this " + entityName + " ID " + entityId + "?");
+
+        // Cách 2: Sử dụng jQuery để trigger modal
+        $("#confirmModal").modal('show');
+    }
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
+
+<head th:replace="fragments :: page_head('Products - FreshCart Admin', 'none')" />
+
+<body>
+  <div th:replace="navigation :: top_nav"></div>
+  <div class="main-wrapper">
+    <div th:replace="navigation :: menu"></div>
+
+    <!-- main content -->
+    <main class="main-content-wrapper bg-white">
+      <div class="container">
+        <!-- header -->
+        <div class="row mb-8">
+          <div class="col-md-12">
+            <div class="d-md-flex justify-content-between align-items-center">
+              <div>
+                <h2>Products</h2>
+              </div>
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                  <div>
+                    <a th:href="@{/products/new}" class="btn btn-primary">Add Product</a>
+                  </div>
+                </th:block>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search and Table -->
+        <div class="row">
+          <div class="col-xl-12 col-12 mb-5">
+            <div class="card h-100 card-lg">
+              <!-- Search Form -->
+              <div class="p-4">
+                <div class="row g-3">
+                  <div class="col-md-9">
+                    <form th:action="@{/products/page/1}" class="row g-3" id="searchForm">
+                      <input type="hidden" name="sortField" th:value="${sortField}" />
+                      <input type="hidden" name="sortDir" th:value="${sortDir}" />
+
+                      <div class="col-md-4">
+                        <select class="form-select" name="categoryId" id="dropdownCategory">
+                          <option value="0">All Categories</option>
+                          <th:block th:each="cat : ${listCategories}">
+                            <option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
+                          </th:block>
+                        </select>
+                      </div>
+
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search products..." />
+                          <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i>
+                          </button>
+                          <button type="button" class="btn btn-secondary" onclick="clearFilter()">
+                            <i class="bi bi-x-lg"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-md-3 text-end">
+                    <a th:href="@{/products/export/csv}" class="btn btn-secondary">
+                      <i class="fas fa-file-csv"></i> Export to CSV
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Table -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-centered table-hover text-nowrap table-borderless mb-0">
+                    <thead class="bg-light">
+                      <tr>
+                        <th class="text-dark">
+                          <th class="text-dark" th:replace="fragments :: column_link('id', 'ID', 'tag')" />
+                          </th>
+                        <th class="text-dark">Product Image</th>
+                        <th th:replace="fragments :: column_link('name', 'Product Name', 'none')" />
+                        <th class="text-dark">
+                          <th th:replace="fragments :: column_link('brand', 'Brand', 'tag')" />
+                          </th>
+
+                        <th class="text-dark">
+                          <th
+                            th:replace="fragments :: column_link('category', 'Category', 'tag')" />
+                          </th>
+                        <th class="text-dark">
+                        <th class="text-dark" th:replace="fragments :: column_link('inStock', 'In Stock', 'tag')" />
+                        </th>
+                        <th class="text-dark">Stock Status</th>
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                          <th class="text-dark">Enabled</th>
+                        </th:block>
+                        <th class="text-dark">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-dark">
+                      <tr th:each="product : ${listProducts}">
+                        <td>[[${product.id}]]</td>
+                        <td>
+                          <div class="icon-shape icon-md">
+                            <img th:src="@{${product.mainImagePath}}" class="img-fluid rounded-3" />
+                          </div>
+                        </td>
+                        <td>
+                            <a class="text-reset link-detail" th:href="@{'/products/detail/' + ${product.id}}">[[${product.shortName}]]</a>
+                        </td>
+                        <td>[[${product.brand.name}]]</td>
+                        <td>[[${product.category.name}]]</td>
+                        <td>[[${product.inStock}]]</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <span th:if="${product.inStock > 20}" class="d-flex align-items-center" style="color: #198754">
+                              <i class="bi bi-circle-fill me-2" style="font-size: 10px"></i>
+                              In Stock
+                            </span>
+                            <span th:if="${product.inStock <= 20 && product.inStock > 0}" class="d-flex align-items-center" style="color: #ffc107">
+                              <i class="bi bi-circle-fill me-2" style="font-size: 10px"></i>
+                              Low Stock
+                            </span>
+                            <span th:if="${product.inStock == 0}" class="d-flex align-items-center" style="color: #dc3545">
+                              <i class="bi bi-circle-fill me-2" style="font-size: 10px"></i>
+                              Out of Stock
+                            </span>
+                          </div>
+                        </td>
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                            <td>
+                              <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />
+                            </td>
+                        </th:block>
+                        <td>
+                          <a class="btn btn-light btn-icon-text link-detail" th:href="@{'/products/detail/' + ${product.id}}"
+                             data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
+                            <i class="bi bi-eye fs-5"></i>
+                          </a>
+
+                          <a class="btn btn-light btn-icon-text" th:href="@{'/products/edit/' + ${product.id}}"
+                             data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                            <i class="bi bi-pencil fs-5"></i>
+                          </a>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div th:replace="fragments :: pagination('products')"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content sẽ được load vào đây -->
+    </div>
+  </div>
+
+  <div th:replace="fragments :: footer"></div>
+  <div th:replace="fragments :: common-js"></div>
+
+  <script type="text/javascript" th:src="@{/js/common_list.js}"></script>
+  <script type="text/javascript" th:src="@{/js/common.js}"></script>
+  <script type="text/javascript">
+    moduleURL = "[[@{/products}]]";
+
+    $(document).ready(function() {
+      var message = "[[${message}]]";
+      if (message) {
+        showSuccessMessage(message);
+      }
+
+      $("#dropdownCategory").on("change", function() {
+        $("#searchForm").submit();
+      });
+
+      // Xử lý tất cả các link có class 'link-detail'
+      $(".link-detail").on("click", function(e) {
+        e.preventDefault();
+        let linkDetailURL = $(this).attr("href");
+
+        // Load content vào modal
+        $.get(linkDetailURL, function(responseHtml) {
+          $("#detailModal .modal-dialog").html(responseHtml);
+          // Show modal sau khi load content
+          var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+          myModal.show();
+        }).fail(function(xhr, status, error) {
+          console.error("Error loading modal content:", error);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

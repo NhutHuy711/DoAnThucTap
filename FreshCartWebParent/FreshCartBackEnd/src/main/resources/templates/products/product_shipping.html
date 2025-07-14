@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:replace="navigation :: top_nav"></div>
+	<div th:fragment="content" th:remove="tag">
+		<div class="card shadow-sm border-0">
+			<div class="card-body">
+				<!-- Info Message -->
+				<div class="alert alert-info mb-4">
+					<i class="bi bi-info-circle me-2"></i>
+					The following information is important to calculate shipping cost for the product.
+					<hr>
+					<small class="text-muted">
+						Note: The dimensions (L × W × H) is for the box that is used to package the product - not the product's dimensions.
+					</small>
+				</div>
+
+				<!-- Dimensions -->
+				<div class="row g-4">
+					<!-- Length -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-label">Length (inch): <span class="text-danger">*</span></label>
+							<div class="input-group has-validation">
+								<input type="number" class="form-control" step="0.01"
+									th:field="*{length}" id="length" placeholder="Enter length" required />
+								<span class="input-group-text">inch</span>
+							</div>
+							<div class="invalid-feedback" style="display: none;"
+								th:text="${@messageServiceAdmin.getMessage('SHIPPING_LENGTH_REQUIRED')}">
+							</div>
+						</div>
+					</div>
+
+					<!-- Width -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-label">Width (inch): <span class="text-danger">*</span></label>
+							<div class="input-group has-validation">
+								<input type="number" class="form-control" step="0.01"
+									th:field="*{width}" id="width" placeholder="Enter width" required />
+								<span class="input-group-text">inch</span>
+							</div>
+							<div class="invalid-feedback" style="display: none;"
+								th:text="${@messageServiceAdmin.getMessage('SHIPPING_WIDTH_REQUIRED')}">
+							</div>
+						</div>
+					</div>
+
+					<!-- Height -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-label">Height (inch): <span class="text-danger">*</span></label>
+							<div class="input-group has-validation">
+								<input type="number" class="form-control" step="0.01"
+									th:field="*{height}" id="height" placeholder="Enter height" required />
+								<span class="input-group-text">inch</span>
+							</div>
+							<div class="invalid-feedback" style="display: none;"
+								th:text="${@messageServiceAdmin.getMessage('SHIPPING_HEIGHT_REQUIRED')}">
+							</div>
+						</div>
+					</div>
+
+					<!-- Weight -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-label">Weight (pounds): <span class="text-danger">*</span></label>
+							<div class="input-group has-validation">
+								<input type="number" class="form-control" step="0.01"
+									th:field="*{weight}" id="weight" placeholder="Enter weight" required/>
+								<span class="input-group-text">lbs</span>
+							</div>
+							<div class="invalid-feedback" style="display: none;"
+								th:text="${@messageServiceAdmin.getMessage('SHIPPING_WEIGHT_REQUIRED')}">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Optional: Add a summary box -->
+				<div class="mt-4">
+					<div class="card bg-light border-0">
+						<div class="card-body">
+							<h6 class="card-title">
+								<i class="bi bi-box-seam me-2"></i>Package Dimensions Summary
+							</h6>
+							<p class="card-text mb-0">
+								These measurements will be used to:
+							</p>
+							<ul class="list-unstyled ms-4 mb-0">
+								<li><i class="bi bi-check2 me-2"></i>Calculate shipping costs</li>
+								<li><i class="bi bi-check2 me-2"></i>Determine package size requirements</li>
+								<li><i class="bi bi-check2 me-2"></i>Optimize shipping methods</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

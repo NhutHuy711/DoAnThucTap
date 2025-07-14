@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head('Categories - FreshCart Admin', 'none')" />
+
+<body>
+  <div th:replace="navigation :: top_nav"></div>
+  <div class="main-wrapper">
+    <div th:replace="navigation :: menu"></div>
+    
+    <!-- main content -->
+    <main class="main-content-wrapper bg-white">
+      <div class="container">
+        <!-- header -->
+        <div class="row mb-8">
+          <div class="col-md-12">
+            <div class="d-md-flex justify-content-between align-items-center">
+              <div>
+                <h2>Categories</h2>
+              </div>
+              <div>
+                <a th:href="@{/categories/new}" class="btn btn-primary">Add Category</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search and Table -->
+        <div class="row">
+          <div class="col-xl-12 col-12 mb-5">
+            <div class="card h-100 card-lg">
+              <!-- Table -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-centered table-hover text-nowrap table-borderless mb-0">
+                    <thead class="bg-light">
+                      <tr>
+                        <th>ID</th>
+                        <th>Category Image</th>
+                        <th>Category Name</th>
+                        <th>Alias</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="cat : ${listCategories}">
+                        <td>[[${cat.id}]]</td>
+                        <td>
+                          <div class="icon-shape icon-md">
+                            <img th:src="@{${cat.imagePath}}" class="img-fluid rounded-3" />
+                          </div>
+                        </td>
+                        <td><a href="#" class="text-reset">[[${cat.name}]]</a></td>
+                        <td class="text-muted">[[${cat.alias}]]</td>
+                        <td>
+                          <div th:replace="fragments :: status(${cat.enabled}, 'category', '/categories/' + ${cat.id})" />
+                        </td>
+                        <td>
+							<a class="btn btn-light btn-icon-text" th:href="@{'/categories/edit/' + ${cat.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+								<i class="bi bi-pencil fs-5"></i>
+							</a>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div th:replace="fragments :: footer"></div>
+  <div th:replace="fragments :: common-js"></div>
+
+  <script type="text/javascript" th:src="@{/js/common_list.js}"></script>
+  <script type="text/javascript" th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/datatable.js}"></script>
+  <script type="text/javascript">
+    moduleURL = "[[@{/categories}]]";
+
+    $(document).ready(function() {
+      var message = "[[${message}]]";
+      if (message) {
+        showSuccessMessage(message);
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<div class="modal-content p-4 rounded-4 shadow-lg border-0">
+    <!-- Header -->
+    <div class="modal-header align-items-center bg-light rounded-top border-0">
+        <h4 class="modal-title fs-3 fw-bold text-primary">Customer Details</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+        <!-- Customer Info Section -->
+        <div class="mb-4">
+            <div class="d-flex align-items-center">
+                <div class="avatar-lg me-3">
+                    <span class="avatar-title bg-primary-soft rounded-circle text-primary fs-4">
+                        <i class="bi bi-person"></i>
+                    </span>
+                </div>
+                <div>
+                    <h5 class="fw-bold text-dark mb-1">[[${customer.fullName}]]</h5>
+                    <p class="text-muted small mb-0">
+                        <i class="bi bi-envelope me-1"></i> [[${customer.email}]]
+                    </p>
+                    <p class="text-muted small">
+                        <i class="bi bi-telephone me-1"></i> [[${customer.phoneNumber}]]
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status & Info -->
+        <div class="row g-3 mb-4">
+            <div class="col-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <p class="text-muted small mb-1">Status</p>
+                        <span th:if="${customer.enabled}" class="badge bg-success-soft text-success">Active</span>
+                        <span th:unless="${customer.enabled}" class="badge bg-danger-soft text-danger">Inactive</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <p class="text-muted small mb-1">Created Date</p>
+                        <span class="fw-medium">[[${#dates.format(customer.createdTime, 'yyyy/MM/dd')}]]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Address Information -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light border-0">
+                <h5 class="mb-0 text-primary">
+                    <i class="bi bi-geo-alt me-2"></i>Address Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <p class="text-muted small mb-1">Address Line 1</p>
+                        <span class="fw-medium">[[${customer.addressLine1}]]</span>
+                    </div>
+                    <div class="col-12" th:if="${customer.addressLine2}">
+                        <p class="text-muted small mb-1">Address Line 2</p>
+                        <span class="fw-medium">[[${customer.addressLine2}]]</span>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">City</p>
+                        <span class="fw-medium">[[${customer.city}]]</span>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">State/Province</p>
+                        <span class="fw-medium">[[${customer.state}]]</span>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">Country</p>
+                        <span class="fw-medium">[[${customer.country.name}]]</span>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">Postal Code</p>
+                        <span class="fw-medium">[[${customer.postalCode}]]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer border-0 justify-content-between">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a th:href="@{'/customers/edit/' + ${customer.id}}" class="btn btn-primary">
+            <i class="bi bi-pencil me-2"></i>Edit Customer
+        </a>
+    </div>
+</div>

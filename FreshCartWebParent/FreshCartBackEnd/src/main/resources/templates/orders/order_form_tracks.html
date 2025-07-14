@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div id="trackList">
+		<div class="table-responsive">
+			<table class="table text-nowrap table-centered">
+				<thead class="bg-light">
+				<tr>
+					<th>Time</th>
+					<th>Status</th>
+					<th>Notes</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				<th:block th:each="track, status : ${order.orderTracks}">
+					<tr th:id="'rowTrack' + ${status.count}"
+						th:with="isTrackWithStatusNewOrPaid = ${track.status.toString() == 'NEW' || track.status.toString() == 'PAID'}">
+
+						<!-- Hidden input for trackId -->
+						<input type="hidden" name="trackId" th:value="${track.id}" class="hiddenTrackId" />
+
+						<!-- Time Column -->
+						<td>
+							<input type="datetime-local" name="trackDate" class="form-control"
+								   th:value="${track.updatedTimeOnForm}" readonly/>
+						</td>
+
+						<!-- Status Column -->
+						<td>
+							<select name="trackStatus" class="form-control dropDownStatus"
+									th:attr="style=${isTrackWithStatusNewOrPaid} ? 'pointer-events: none;' : ''"
+									required th:rowNumber="${status.count}" >
+								<th:block th:each="os : ${T(com.freshcart.common.entity.order.OrderStatus).values()}">
+									<option th:value="${os}" th:text="${os}"
+											th:selected="${os == track.status}" />
+								</th:block>
+							</select>
+						</td>
+
+						<!-- Notes Column -->
+						<td>
+							<textarea class="form-control" name="trackNotes" rows="2"
+									  th:id="'trackNote' + ${status.count}"
+									  th:readonly="${isTrackWithStatusNewOrPaid}">[[${track.notes}]]</textarea>
+						</td>
+
+						<!-- Delete Action Column -->
+						<td>
+							<th:block th:if="${!isTrackWithStatusNewOrPaid}">
+								<a class="text-danger linkRemoveTrack" href="#" 
+								   th:rowNumber="${status.count}">
+									<i class="feather-icon icon-trash-2"></i>
+								</a>
+							</th:block>
+						</td>
+					</tr>
+				</th:block>
+				</tbody>
+			</table>
+		</div>
+		
+		<button type="button" id="linkAddTrack" class="btn btn-primary mt-3">
+			<i class="bi bi-plus"></i> Add Track Record
+		</button>
+	</div>
+</div>
+</body>
+</html>

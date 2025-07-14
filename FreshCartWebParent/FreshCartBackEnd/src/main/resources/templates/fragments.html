@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
+	<link rel="icon" type="image/icon" th:href="@{/images/favicon/favicon.ico}">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+	
+	<title>[[${title}]]</title>
+	<link rel="stylesheet" th:href="@{/css/theme.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/fontawesome/all.css}" type="text/css"/>
+	<link rel="stylesheet" th:href="@{/css/sidebar.css}" type="text/css"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/libs/feather-webfont/dist/feather-icons.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/libs/simplebar/dist/simplebar.min.css}" type="text/css"/>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css"/>
+    <link th:href="@{/css/custom-notify.css}" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/r-2.2.9/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap5.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/datatables-custom.css}" />
+	<link rel="stylesheet" th:href="@{/css/choices-custom.css}">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+	<style>
+		input[readonly],
+		select[readonly],
+		textarea[readonly] {
+			background-color: #e9ecef !important;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div th:fragment="footer" class="text-center m-3">
+		<p>Fresh Cart Control Panel - Copyright &copy; Fresh Cart</p>
+	</div>
+
+	<th th:fragment="column_link(fieldName, columnLabel, removeTag)"
+		th:remove="${removeTag}"><a class="text-dark"
+		th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
+			[[${columnLabel}]] </a> <span th:if="${sortField == fieldName}"
+		th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+	</th>
+
+	<a th:fragment="page_link(pageNum, label)" class="page-link active"
+		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">[[${label}]]</a>
+
+	<div th:fragment="user_photos" th:remove="tag">
+		<span th:if="${user.photos == null}"
+			class="fas fa-portrait fa-3x icon-silver"></span> <img
+			th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+			style="width: 100px" />
+	</div>
+
+	<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
+		<div class="form-check form-switch">
+			<input class="form-check-input" 
+				   type="checkbox"
+				   role="switch"
+				   th:checked="${enabled}"
+				   th:onclick="'location.href=\'' + @{${entityURL} + '/enabled/' + ${!enabled}} + '\''"
+				   style="cursor: pointer"/>
+		</div>
+	</div>
+
+	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
+		<a class="fas fa-edit me-2 icon-green" th:href="@{${editURL}}"
+			th:title="'Edit this ' + ${entityName}"></a>
+	</div>
+
+	<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
+		<th:block th:if="${visible}">
+			<a class="fas fa-trash fa-2x icon-dark link-delete"
+			   th:href="@{${deleteURL}}" th:entityId="${entityId}"
+			   th:title="'Delete this ' + ${entityName}"></a>
+		</th:block>
+	</div>
+
+
+
+	<div th:fragment="pagination(entityName)" th:remove="tag">
+		<div th:if="${totalPages > 1}" class="border-top d-md-flex justify-content-between align-items-center p-6">
+			<!-- Showing entries text -->
+			<div class="mb-3 mb-md-0">
+				<span class="text-muted">Showing [[${entityName}]] [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+			</div>
+
+			<!-- Pagination -->
+			<nav>
+				<ul class="pagination mb-0">
+					<!-- First Page -->
+					<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{${moduleURL} + '/page/1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
+							<i class="bi bi-chevron-double-left"></i>
+						</a>
+					</li>
+
+					<!-- Previous Page -->
+					<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{${moduleURL} + '/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+							<i class="bi bi-chevron-left"></i>
+						</a>
+					</li>
+
+					<!-- Show "..." if not on first few pages -->
+					<li th:if="${currentPage > 3}" class="page-item disabled">
+						<span class="page-link">...</span>
+					</li>
+
+					<!-- Page Numbers -->
+					<li th:each="i : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage < totalPages - 2 ? currentPage + 2 : totalPages)}"
+						th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+						<a class="page-link" th:href="@{${moduleURL} + '/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+							[[${i}]]
+						</a>
+					</li>
+
+					<!-- Show "..." if not on last few pages -->
+					<li th:if="${currentPage < totalPages - 2}" class="page-item disabled">
+						<span class="page-link">...</span>
+					</li>
+
+					<!-- Next Page -->
+					<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{${moduleURL} + '/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+							<i class="bi bi-chevron-right"></i>
+						</a>
+					</li>
+
+					<!-- Last Page -->
+					<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{${moduleURL} + '/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+							<i class="bi bi-chevron-double-right"></i>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+
+	<div th:fragment="search_form_and_message()">
+		<form th:action="@{${moduleURL} + '/page/1'}" class="d-flex" role="search">
+			<input type="hidden" name="sortField" th:value="${sortField}" />
+			<input type="hidden" name="sortDir" th:value="${sortDir}" />
+			
+			<input class="form-control" type="search" name="keyword" th:value="${keyword}" 
+				   placeholder="Search" required/>
+				   
+			<button type="submit" class="btn btn-light ms-3">
+				<i class="bi bi-search"></i>
+			</button>
+			
+			<button type="button" class="btn btn-light ms-2" onclick="clearFilter()">
+				<i class="bi bi-x-lg"></i>
+			</button>
+		</form>
+	</div>
+
+	<div th:fragment="format_currency(amount)" th:remove="tag">
+		<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}"
+			th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span
+			th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+	</div>
+
+	<div th:fragment="format_time(dateTime)" th:remove="tag">
+		<span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+	</div>
+
+	<div th:fragment="currency_input(amount)" th:remove="tag">
+		<input type="text" readonly class="form-control"
+			th:value="${(CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : '') + #numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE) + (CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : '')}">
+	</div>
+
+	<div th:fragment="common-js">
+		<!-- Core JS -->
+		<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap_validation.js}"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/r-2.2.9/datatables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap5.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+		<!-- Additional Libraries -->
+		<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/common_toast.js}"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/theme.min.js}"></script>
+		<script th:src="@{/js/common_form.js}"></script>
+		<script th:src="@{/js/common_list.js}"></script>
+		<script th:src="@{/js/menu_collapse.js}"></script>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="row g-3">
+        <!-- Order ID -->
+        <div class="col-md-6">
+            <label class="form-label">Order ID</label>
+            <input type="text" readonly class="form-control bg-light"
+                   th:value="${order.id}">
+        </div>
+
+        <!-- Customer -->
+        <div class="col-md-6">
+            <label class="form-label">Customer</label>
+            <input type="text" readonly class="form-control bg-light"
+                   th:value="${order.customer.fullName}">
+        </div>
+
+        <!-- Product Cost -->
+        <div class="col-md-6">
+            <label class="form-label">Product Cost</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" th:field="*{productCost}" required readonly
+                       class="form-control bg-light" />
+            </div>
+        </div>
+
+        <!-- Subtotal -->
+        <div class="col-md-6">
+            <label class="form-label">Subtotal</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" th:field="*{subtotal}" required readonly
+                       class="form-control bg-light" />
+            </div>
+        </div>
+
+        <!-- Shipping Cost -->
+        <div class="col-md-6">
+            <label class="form-label">Shipping Cost</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" th:field="*{shippingCost}" required class="form-control bg-light" readonly/>
+
+            </div>
+        </div>
+
+        <!-- Tax -->
+        <div class="col-md-6">
+            <label class="form-label">Tax</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" th:field="*{tax}" required class="form-control bg-light" readonly />
+            </div>
+        </div>
+
+        <!-- Total -->
+        <div class="col-md-6">
+            <label class="form-label">Total</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" th:field="*{total}" required class="form-control bg-light" readonly/>
+            </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="col-md-6">
+            <label class="form-label">Payment Method</label>
+            <input type="text" th:field="*{paymentMethod}" class="form-control bg-light" readonly/>
+        </div>
+
+        <!-- Status -->
+        <div class="col-md-6">
+            <label class="form-label">Status</label>
+            <input type="text" id="overviewStatus" name="status" th:field="*{status}"
+                   class="form-control bg-light" readonly />
+        </div>
+    </div>
+</div>
+</body>
+</html>

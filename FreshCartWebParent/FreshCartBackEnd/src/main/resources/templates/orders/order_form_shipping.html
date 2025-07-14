@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+<div th:fragment="content" th:remove="tag" class="container">
+	<div class="row">
+		<input type="hidden" id="orderTime" th:value="${#dates.format(order.orderTime, 'yyyy-MM-dd')}" />
+
+		<!-- Cột bên trái -->
+		<div class="col-md-6">
+			<div class="mb-3">
+				<label class="form-label">Deliver Days:</label> <span class="text-danger">*</span>
+				<input type="number" step="1" class="form-control" name="deliverDays" th:field="*{deliverDays}"/>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">First Name:</label> <span class="text-danger">*</span>
+				<input type="text" class="form-control firstName-input" name="firstName" th:field="*{firstName}" required />
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Phone Number:</label> <span class="text-danger">*</span>
+				<input type="text" class="form-control phone-input" name="phoneNumber" th:field="*{phoneNumber}" />
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Address Line 1:</label>
+				<input type="text" class="form-control bg-light" th:field="*{addressLine1}" readonly />
+			</div>
+			<div class="mb-3">
+				<label class="form-label">City:</label>
+				<input type="text" class="form-control bg-light" th:field="*{city}" readonly />
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Postal Code:</label>
+				<input type="text" class="form-control bg-light" th:field="*{postalCode}" readonly />
+			</div>
+		</div>
+
+		<!-- Cột bên phải -->
+		<div class="col-md-6">
+			<div class="mb-3">
+				<label class="form-label">Expected Deliver Date:</label> <span class="text-danger">*</span>
+				<input type="date" class="form-control bg-light" th:field="*{deliverDateOnForm}" readonly />
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Last Name:</label> <span class="text-danger">*</span>
+				<input type="text" class="form-control lastName-input" name="lastName" th:field="*{lastName}" required />
+			</div>
+			<div class="mb-3">
+				<div style="height: 74px;"></div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Address Line 2:</label>
+				<input type="text" class="form-control bg-light" th:field="*{addressLine2}" readonly/>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Country:</label>
+				<input type="text" class="form-control bg-light" name="countryName" th:field="*{country}" readonly />
+			</div>
+			<div class="mb-3">
+				<label class="form-label">State:</label>
+				<input type="text" class="form-control bg-light" th:field="*{state}" list="listStates" readonly />
+				<datalist id="listStates">
+				</datalist>
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

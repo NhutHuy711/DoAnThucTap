@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+</head>
+
+<body>
+    <div th:replace="navigation :: top_nav"></div>
+    <div class="main-wrapper">
+        <div th:replace="navigation :: menu"></div>
+        <!-- main wrapper -->
+            
+            <!-- main content -->
+            <main class="main-content-wrapper bg-white">
+                <div class="container">
+                    <!-- header -->
+                    <div class="row mb-8">
+                        <div class="col-md-12">
+                            <div class="d-md-flex justify-content-between align-items-center">
+                                <div>
+                                    <h2>[[${pageTitle}]]</h2>
+                                    <div class="d-flex">
+                                        <a th:href="@{/users}" class="text-inherit">Users</a>
+                                        <span class="mx-2">/</span>
+                                        <span class="text-muted">[[${pageTitle}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- form -->
+                    <form th:action="@{/users/save}" method="post" enctype="multipart/form-data" 
+                          th:object="${user}" onsubmit="return checkEmailUnique(this);"
+                          class="card shadow-sm border-0">
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="card-body p-6">
+                            <!-- Upload Photo Section -->
+                            <div class="mb-5">
+                                <input type="hidden" th:field="*{photos}" />
+                                <div class="d-flex align-items-center">
+                                    <!-- Image Preview -->
+                                    <div class="image avatar avatar-lg rounded-3 me-3">
+                                        <img id="userThumbnail" th:src="@{${user.photosImagePath}}"
+                                             class="img-fluid rounded-3" 
+                                             alt="User photo"/>
+                                    </div>
+                                    
+                                    <!-- Upload Button -->
+                                    <label class="btn btn-light me-3">
+                                        Upload Photo
+                                        <input type="file" id="fileImage" name="image" 
+                                               accept="image/png, image/jpeg, image/gif"
+                                               class="d-none"/>
+                                    </label>
+
+                                    <!-- Text -->
+                                    <span class="text-muted small">JPG, GIF or PNG. 1MB Max.</span>
+                                </div>
+                            </div>
+
+                            <!-- User Information -->
+                            <h5 class="mb-4">User Information</h5>
+                            <div class="row">
+                                <!-- Email & First Name -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        Email <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="email" class="form-control" th:field="*{email}"
+                                        required minlength="8" maxlength="128"
+                                        th:readonly="${pageTitle != 'Create New User'}"
+                                        placeholder="Enter email" />
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        First Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" th:field="*{firstName}"
+                                        required minlength="2" maxlength="45"
+                                        placeholder="Enter first name" />
+                                </div>
+
+                                <!-- Last Name & Password -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        Last Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" th:field="*{lastName}"
+                                        required minlength="2" maxlength="45"
+                                        placeholder="Enter last name" />
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        Password <span class="text-danger" th:if="${user.id == null}">*</span>
+                                    </label>
+                                    <div class="password-field position-relative">
+                                        <input th:if="${user.id == null}" 
+                                            type="password"
+                                            class="form-control" 
+                                            id="password" 
+                                            th:field="*{password}" 
+                                            required 
+                                            minlength="8" 
+                                            maxlength="20" 
+                                            placeholder="Enter password" />
+                                                
+                                        <input th:if="${user.id != null}" 
+                                            type="password"
+                                            class="form-control" 
+                                            id="password" 
+                                            th:field="*{password}"
+                                            minlength="8" 
+                                            maxlength="20" 
+                                            placeholder="Leave blank to keep current password" />
+                                        <span><i class="bi bi-eye-slash password-toggler"></i></span>
+                                    </div>
+                                </div>
+
+                                <!-- Roles & Status -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        Roles <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" 
+                                            multiple 
+                                            th:field="*{roles}" 
+                                            id="rolesSelect" 
+                                            required>
+                                        <th:block th:each="role : ${listRoles}">
+                                            <option th:if="${role.name != 'Admin'}" th:value="${role.id}" th:text="${role.name}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label d-block">Status</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" th:field="*{enabled}">
+                                        <label class="form-check-label">Enable this user</label>
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <a type="button" th:href="@{/users}" class="btn btn-secondary ms-2">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </main>
+
+
+        
+    </div>
+	<div th:replace="modal_fragments :: modal_dialog"></div>
+    <div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: common-js"></div>
+
+    <!-- Scripts -->
+    <script th:src="@{/libs/choices.js/public/assets/scripts/choices.min.js}"></script>
+    <script type="text/javascript">
+        MAX_FILE_SIZE = 102400; // 100KB
+        moduleURL = "[[@{/users}]]";
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const element = document.querySelector('#rolesSelect');
+            
+            // Decode HTML entities trong options trưc khi khởi tạo Choices
+            element.querySelectorAll('option').forEach(option => {
+                option.textContent = decodeHTMLEntities(option.textContent);
+            });
+
+            const choices = new Choices(element, {
+                removeItemButton: true,
+                searchEnabled: true,
+                searchPlaceholderValue: 'Search roles...',
+                placeholder: true,
+                placeholderValue: 'Select roles',
+                classNames: {
+                    containerOuter: 'choices',
+                    containerInner: 'choices__inner',
+                    input: 'choices__input',
+                    inputCloned: 'choices__input--cloned',
+                    list: 'choices__list',
+                    listItems: 'choices__list--multiple',
+                    listSingle: 'choices__list--single',
+                    listDropdown: 'choices__list--dropdown',
+                    item: 'choices__item',
+                    itemSelectable: 'choices__item--selectable',
+                    itemDisabled: 'choices__item--disabled',
+                    itemChoice: 'choices__item--choice',
+                    placeholder: 'choices__placeholder',
+                    group: 'choices__group',
+                    groupHeading: 'choices__heading',
+                    button: 'choices__button'
+                }
+            });
+        });
+
+        // Hàm để decode HTML entities
+        function decodeHTMLEntities(text) {
+            const textArea = document.createElement('textarea');
+            textArea.innerHTML = text;
+            return textArea.value;
+        }
+
+        function checkEmailUnique(form) {
+            url = "[[@{/users/check_email}]]";
+            userEmail = $("#email").val();
+            userId = $("#id").val();
+            csrfValue = $("input[name='_csrf']").val();
+
+            params = {id: userId, email: userEmail, _csrf: csrfValue};
+
+            $.post(url, params, function (response) {
+                if (response == "OK") {
+                    form.submit();
+                } else if (response == "Duplicated") {
+                    showWarningMessage("There is another user having the email " + userEmail);
+                } else {
+                    showErrorMessage("Unknown response from server");
+                }
+            }).fail(function () {
+                showErrorMessage("Could not connect to the server");
+            });
+
+            return false;
+        }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var password = document.getElementById('password'),
+            toggler = document.getElementById('passwordToggler');
+
+        function showHidePassword(passwordField, togglerIcon) {
+            if (passwordField.type === 'password') {
+                passwordField.setAttribute('type', 'text');
+                togglerIcon.classList.remove('bi-eye-slash');
+                togglerIcon.classList.add('bi-eye');
+            } else {
+                passwordField.setAttribute('type', 'password');
+                togglerIcon.classList.remove('bi-eye');
+                togglerIcon.classList.add('bi-eye-slash');
+            }
+        }
+
+        toggler.addEventListener('click', function() {
+            showHidePassword(password, toggler);
+        });
+    });
+    </script>
+</div>
+</body>
+</html>

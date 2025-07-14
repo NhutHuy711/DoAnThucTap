@@ -1,0 +1,192 @@
+<div class="modal-header">
+	<h4 class="modal-title">Order Details</h4>
+</div>
+
+<div class="modal-body">
+	<div class="container">
+		<!-- Tabs Navigation -->
+		<ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+			<li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab">Overview</a></li>
+			<li class="nav-item"><a class="nav-link" id="products-tab" data-bs-toggle="tab" href="#products" role="tab">Products</a></li>
+			<li class="nav-item"><a class="nav-link" id="shipping-tab" data-bs-toggle="tab" href="#shipping" role="tab">Shipping</a></li>
+			<li class="nav-item"><a class="nav-link" id="track-tab" data-bs-toggle="tab" href="#track" role="tab">Track</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<!-- Overview Tab -->
+			<div class="tab-pane fade show active" id="overview" role="tabpanel">
+				<div class="row g-3">
+					<!-- Order ID -->
+					<div class="col-md-6">
+						<label class="form-label">Order ID</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.id}">
+					</div>
+					<!-- Customer -->
+					<div class="col-md-6" th:if="${isVisibleForAdminOrSalesperson}">
+						<label class="form-label">Customer</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.customer.fullName}">
+					</div>
+					<!-- Product Cost -->
+					<div class="col-md-6">
+						<label class="form-label">Product Cost</label>
+						<div class="input-group">
+							<span class="input-group-text">$</span>
+							<input type="text" readonly class="form-control bg-light" th:value="${order.productCost}">
+						</div>
+					</div>
+					<!-- Subtotal -->
+					<div class="col-md-6">
+						<label class="form-label">Subtotal</label>
+						<div class="input-group">
+							<span class="input-group-text">$</span>
+							<input type="text" readonly class="form-control bg-light" th:value="${order.subtotal}">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Shipping Cost:</label>
+						<div class="input-group">
+							<span class="input-group-text">$</span>
+							<input type="text" readonly class="form-control bg-light" th:value="${order.shippingCost}">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Tax:</label>
+						<div class="input-group">
+							<span class="input-group-text">$</span>
+							<input type="text" readonly class="form-control bg-light" th:value="${order.tax}">
+						</div>
+					</div>
+					<!-- Total -->
+					<div class="col-md-6">
+						<label class="form-label">Total</label>
+						<div class="input-group">
+							<span class="input-group-text">$</span>
+							<input type="text" readonly class="form-control bg-light" th:value="${order.total}">
+						</div>
+					</div>
+					<!-- Payment Method -->
+					<div class="col-md-6">
+						<label class="form-label">Payment Method</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.paymentMethod}">
+					</div>
+					<!-- Status -->
+					<div class="col-md-6">
+						<label class="form-label">Status</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.status}">
+					</div>
+				</div>
+			</div>
+
+			<!-- Products Tab -->
+			<div class="tab-pane fade" id="products" role="tabpanel">
+				<div id="productList" class="table-responsive">
+					<table class="table text-nowrap table-centered">
+						<thead class="bg-light">
+						<tr>
+							<th>Products</th>
+							<th>Unit Cost</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Shipping Cost</th>
+							<th>Total</th>
+						</tr>
+						</thead>
+						<tbody>
+						<th:block th:each="detail : ${order.orderDetails}">
+							<tr>
+								<td>
+									<div class="d-flex flex-column align-items-center">
+										<img th:src="@{${detail.product.mainImagePath}}" style="width: 50px; height: 50px;">
+										<h5 class="mb-0 text-center">[[${detail.product.name}]]</h5>
+									</div>
+								</td>
+								<td>[[${detail.productCost}]]</td>
+								<td>[[${detail.quantity}]]</td>
+								<td>[[${detail.unitPrice}]]</td>
+								<td>[[${detail.shippingCost}]]</td>
+								<td>[[${detail.subtotal}]]</td>
+							</tr>
+						</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- Shipping Tab -->
+			<div class="tab-pane fade" id="shipping" role="tabpanel">
+				<div class="row g-3">
+					<div class="col-md-6">
+						<label class="form-label">Deliver Days:</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.deliverDays}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Expected Deliver Date:</label>
+						<input type="date" readonly class="form-control bg-light"
+							   th:value="${#dates.format(order.deliverDate, 'yyyy-MM-dd')}"
+							   placeholder="dd-mm-yyyy">
+
+					</div>
+					<!-- Address Fields -->
+					<div class="col-md-6">
+						<label class="form-label">First Name</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.firstName}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Last Name</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.lastName}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Address Line 1</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.addressLine1}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Address Line 2</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.addressLine2}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">City</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.city}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">State</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.state}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Country</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.country}">
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Postal Code</label>
+						<input type="text" readonly class="form-control bg-light" th:value="${order.postalCode}">
+					</div>
+				</div>
+			</div>
+
+			<!-- Track Tab -->
+			<div class="tab-pane fade" id="track" role="tabpanel">
+				<table class="table text-nowrap table-centered">
+					<thead class="bg-light">
+					<tr>
+						<th>Time</th>
+						<th>Status</th>
+						<th>Notes</th>
+					</tr>
+					</thead>
+					<tbody>
+					<th:block th:each="track : ${order.orderTracks}">
+						<tr>
+							<td>[[${track.updatedTime}]]</td>
+							<td>[[${track.status}]]</td>
+							<td>[[${track.notes}]]</td>
+						</tr>
+					</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+</div>

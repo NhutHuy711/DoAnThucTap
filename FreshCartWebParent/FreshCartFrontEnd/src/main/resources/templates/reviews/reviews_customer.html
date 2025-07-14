@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head('My Reviews', 'none')"/>
+
+<body class="bg-gray-50">
+<div class="container-fluid">
+    <div th:replace="navigation :: header_menu"></div>
+    <div th:replace="navigation :: search_nav"></div>
+    <div th:replace="navigation :: category_nav"></div>
+
+    <main class="py-8">
+        <div class="container">
+            <div class="row g-6">
+                <!-- Sidebar -->
+                <div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
+                    <div class="pt-10 pe-lg-10">
+                        <ul class="nav flex-column nav-pills nav-pills-dark">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/account_details}">
+                                    <i class="feather-icon icon-user me-2"></i>Personal Info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/orders}">
+                                    <i class="feather-icon icon-shopping-bag me-2"></i>Your Orders
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/address_book}">
+                                    <i class="feather-icon icon-map-pin me-2"></i>Address
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/reviews}">
+                                    <i class="feather-icon icon-star me-2"></i>Reviews
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <hr>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript: document.logoutForm.submit()">
+                                    <i class="feather-icon icon-log-out me-2"></i>Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-lg-9 col-md-8">
+                    <div class="px-4 pt-4 pb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="h4 mb-0">My Reviews</h2>
+                            <div class="search-container position-relative">
+                                <div th:replace="fragments :: search_form"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <!-- Review Items -->
+                            <div th:each="review : ${listReviews}"
+                                 class="review-item p-4 bg-white rounded-lg border hover-shadow-md transition">
+                                <div class="d-flex">
+                                    <!-- Product Image -->
+                                    <div class="flex-shrink-0">
+                                        <img th:if="${review.product.mainImagePath != null}"
+                                             th:src="@{${review.product.mainImagePath}}"
+                                             class="rounded-circle object-cover"
+                                             width="48" height="48"
+                                             alt="product image">
+                                    </div>
+
+                                    <!-- Review Content -->
+                                    <div class="ms-4 flex-grow-1">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h3 class="h6 mb-1">
+                                                    <a th:href="@{'/p/' + ${review.product.alias}}"
+                                                       class="text-decoration-none text-gray-900 hover-text-blue-600"
+                                                       target="_blank">
+                                                        [[${review.product.shortName}]]
+                                                    </a>
+                                                </h3>
+                                                <p class="text-gray-600 mb-1">[[${review.headline}]]</p>
+                                            </div>
+
+                                            <!-- Star Rating -->
+                                            <div class="d-flex flex-column align-items-end">
+                                                <div class="rating-stars">
+                                                    <th:block th:with="num=${review.rating}">
+                                        <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                            <i class="fas fa-star"
+                                               th:style="${i <= num ? 'color: #ffc107' : 'color: #e4e5e9'}">
+                                            </i>
+                                        </span>
+                                                    </th:block>
+                                                </div>
+                                                <small class="text-gray-500 mt-1">
+                                                    <div th:replace="fragments :: format_time(${review.reviewTime})"></div>
+                                                </small>
+                                            </div>
+                                        </div>
+
+                                        <!-- Action Button -->
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <a class="btn btn-light btn-sm d-flex align-items-center gap-2 link-detail-review rounded-pill px-3"
+                                               th:href="@{'/reviews/detail/' + ${review.id}}"
+                                               title="View details">
+                                                <i class="feather-icon icon-eye"></i>
+                                                <span>View Details</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div th:replace="fragments :: pagination('/reviews', 'reviews')"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Review Detail Modal -->
+    <div class="modal fade" id="reviewDetailModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div>&nbsp;</div>
+    <div th:replace="navigation :: footer_menu"></div>
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/reviews}]]";
+
+    $(document).ready(function () {
+        handleDetailLink(".link-detail-review", "#reviewDetailModal");
+    });
+</script>
+
+
+</body>
+</html>

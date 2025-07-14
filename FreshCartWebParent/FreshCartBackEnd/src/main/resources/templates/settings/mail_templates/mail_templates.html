@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content" th:remove="tag">
+		
+			<!-- Header -->
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<h2 class="mb-0">Mail Templates Settings</h2>
+			</div>
+
+			<!-- Description Card -->
+			<div class="card mb-8 bg-light border-0">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div class="me-3">
+							<i class="bi bi-envelope-paper text-primary fs-4"></i>
+						</div>
+						<p class="mb-0">
+							Configure email templates that will be sent to customers in different scenarios. 
+							You can customize the content and subject for each type of email.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<form th:action="@{/settings/save_mail_templates}" method="post">
+				<!-- Navigation Tabs -->
+				<ul class="nav nav-pills nav-lb-tab mb-4" id="mailTemplatesTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="customerVerification-tab" data-bs-toggle="tab" 
+								data-bs-target="#customerVerification" type="button" role="tab" 
+								aria-controls="customerVerification" aria-selected="true">
+							Customer Verification
+						</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="orderConfirmation-tab" data-bs-toggle="tab"
+								data-bs-target="#orderConfirmation" type="button" role="tab"
+								aria-controls="orderConfirmation" aria-selected="false">
+							Order Confirmation
+						</button>
+					</li>
+				</ul>
+
+				<!-- Tab Content -->
+				<div class="tab-content" id="mailTemplatesTabContent">
+					<!-- Customer Verification Tab -->
+					<div class="tab-pane fade show active" id="customerVerification" role="tabpanel">
+						<div th:replace="settings/mail_templates/customer_verification:: content"></div>
+					</div>
+
+					<!-- Order Confirmation Tab -->
+					<div class="tab-pane fade" id="orderConfirmation" role="tabpanel">
+						<div th:replace="settings/mail_templates/order_confirmation:: content"></div>
+					</div>
+				</div>
+
+				<!-- Action Buttons -->
+				<div class="d-flex mt-4">
+					<button type="submit" class="btn btn-primary me-2">
+						Save
+					</button>
+					
+				</div>
+			</form>
+	</div>
+
+</body>
+
+</html>

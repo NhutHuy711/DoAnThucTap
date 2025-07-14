@@ -1,0 +1,263 @@
+<div class="container py-3">
+
+    <!-- Order Header Card --><!-- Order Header -->
+    <div class="mb-3">  <!-- Giảm margin từ mb-4 xuống mb-3 -->
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="mb-1">Order #[[${order.id}]]</h4>
+                <p class="text-muted mb-0">Order Details</p>
+            </div>
+            <div class="d-flex justify-content-end mb-3">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-lg-8">
+            <!-- Delivery Information Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body px-3 py-3">  <!-- Giảm padding -->
+                    <h5 class="card-title mb-4">
+                        <i class="fas fa-shipping-fast text-primary me-2"></i>
+                        Delivery Information
+                    </h5>
+
+                    <div class="mb-3">
+                        <strong>Customer:</strong> [[${order.firstName}]] [[${order.lastName}]],
+                        [[${order.phoneNumber}]]
+                        <div class="address mt-1">
+                            [[${order.addressLine1}]] [[${order.addressLine2}]], [[${order.city}]], [[${order.state}]]
+                            [[${order.postalCode}]]
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Expected Delivery:</strong> [[${#dates.format(order.deliverDate, 'dd/MM/yyyy')}]]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tracking Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body px-3 py-3">
+                    <h5 class="card-title mb-4">
+                        <i class="fas fa-map-marker-alt text-success me-2"></i>
+                        Order Tracking
+                    </h5>
+
+                    <div class="position-relative tracking-progress pb-3">
+                        <!-- Giảm padding-bottom từ pb-5 xuống pb-3 -->
+                        <!-- Progress Line -->
+                        <div class="position-absolute" style="top: 24px; left: 24px; right: 24px;">
+                            <!-- Thêm left và right để tránh thừa -->
+                            <div class="progress" style="height: 2px;">
+                                <div class="progress-bar bg-success" role="progressbar"
+                                     th:with="progress=${order.delivered ? 100 : (order.shipping ? 66.67 : (order.picked ? 33.33 : 0))}"
+                                     th:style="'width: ' + ${progress} + '%'"
+                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tracking steps -->
+                        <div class="d-flex justify-content-between position-relative">
+                            <!-- New Order -->
+                            <div class="tracking-step text-center">
+                                <div class="tracking-icon bg-success rounded-circle d-flex align-items-center justify-content-center mb-2"
+                                     style="width: 48px; height: 48px; margin: 0 auto;">
+                                    <i class="fas fa-file-invoice text-white"></i>
+                                </div>
+                                <div class="tracking-label fw-bold mb-1" style="font-size: 0.9rem;">New</div>
+                                <div class="tracking-date text-muted" style="font-size: 0.8rem;">
+                                    <th:block th:each="track : ${order.orderTracks}">
+                                        <th:block th:if="${track.status.name() == 'NEW'}">
+                                            [[${#dates.format(track.updatedTime, 'dd/MM/yyyy')}]]<br>
+                                            [[${#dates.format(track.updatedTime, 'HH:mm')}]]
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+
+                            <!-- Các phần còn lại giữ nguyên -->
+                            <!-- Picked -->
+                            <div class="tracking-step text-center">
+                                <div th:class="'tracking-icon rounded-circle d-flex align-items-center justify-content-center mb-2 ' +
+                        ${order.picked ? 'bg-success' : 'bg-secondary'}"
+                                     style="width: 48px; height: 48px; margin: 0 auto;">
+                                    <i class="fas fa-box text-white"></i>
+                                </div>
+                                <div class="tracking-label fw-bold mb-1" style="font-size: 0.9rem;">Picked</div>
+                                <div class="tracking-date text-muted" style="font-size: 0.8rem;">
+                                    <th:block th:each="track : ${order.orderTracks}">
+                                        <th:block th:if="${track.status.name() == 'PICKED'}">
+                                            [[${#dates.format(track.updatedTime, 'dd/MM/yyyy')}]]<br>
+                                            [[${#dates.format(track.updatedTime, 'HH:mm')}]]
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+
+                            <!-- Shipping -->
+                            <div class="tracking-step text-center">
+                                <div th:class="'tracking-icon rounded-circle d-flex align-items-center justify-content-center mb-2 ' +
+                        ${order.shipping ? 'bg-success' : 'bg-secondary'}"
+                                     style="width: 48px; height: 48px; margin: 0 auto;">
+                                    <i class="fas fa-truck text-white"></i>
+                                </div>
+                                <div class="tracking-label fw-bold mb-1" style="font-size: 0.9rem;">Shipping</div>
+                                <div class="tracking-date text-muted" style="font-size: 0.8rem;">
+                                    <th:block th:each="track : ${order.orderTracks}">
+                                        <th:block th:if="${track.status.name() == 'SHIPPING'}">
+                                            [[${#dates.format(track.updatedTime, 'dd/MM/yyyy')}]]<br>
+                                            [[${#dates.format(track.updatedTime, 'HH:mm')}]]
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+
+                            <!-- Delivered -->
+                            <div class="tracking-step text-center">
+                                <div th:class="'tracking-icon rounded-circle d-flex align-items-center justify-content-center mb-2 ' +
+                        ${order.delivered ? 'bg-success' : 'bg-secondary'}"
+                                     style="width: 48px; height: 48px; margin: 0 auto;">
+                                    <i class="fas fa-home text-white"></i>
+                                </div>
+                                <div class="tracking-label fw-bold mb-1" style="font-size: 0.9rem;">Delivered</div>
+                                <div class="tracking-date text-muted" style="font-size: 0.8rem;">
+                                    <th:block th:each="track : ${order.orderTracks}">
+                                        <th:block th:if="${track.status.name() == 'DELIVERED'}">
+                                            [[${#dates.format(track.updatedTime, 'dd/MM/yyyy')}]]<br>
+                                            [[${#dates.format(track.updatedTime, 'HH:mm')}]]
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Order Items Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body px-3 py-3">
+                    <h5 class="card-title mb-4">
+                        <i class="fas fa-shopping-bag text-primary me-2"></i>
+                        Order Items
+                    </h5>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 80px"></th>
+                                <th></th>
+                                <th class="text-end" style="width: 200px"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="detail : ${order.orderDetails}">
+                                <td>
+                                    <img th:src="@{${detail.product.mainImagePath}}"
+                                         class="img-fluid rounded"
+                                         alt="Product"
+                                         style="width: 80px; height: 80px; object-fit: cover;">
+                                    <!-- Tăng từ 40px lên 80px -->
+
+                                </td>
+                                <td>
+                                    <div>[[${detail.product.name}]]</div>
+                                    <div class="mt-2">
+                                        <div th:if="${!detail.product.reviewedByCustomer && detail.product.customerCanReview}">
+                                            <a th:href="@{'/write_review/product/' + ${detail.product.id}}"
+                                               class="btn btn-info btn-sm">Write Review</a>
+                                        </div>
+                                        <div th:if="${detail.product.reviewedByCustomer}">
+                                            <a target="_blank"
+                                               th:href="@{'/reviews/page/1?sortField=reviewTime&sortDir=desc&keyword=' + ${#strings.substring(detail.product.shortName, 0, 20)}}"
+                                               class="btn btn-warning btn-sm">See your Review</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end">
+                                    <div class="fw-bold">$[[${#numbers.formatDecimal(detail.unitPrice, 1, 2)}]]</div>
+                                    <div class="text-muted mt-1">Quantity: [[${detail.quantity}]]</div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-4">
+            <!-- Order Summary Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body px-3 py-3">
+                    <h5 class="card-title mb-4">
+                        <i class="fas fa-receipt text-primary me-2"></i>
+                        Order Summary
+                    </h5>
+
+                    <!-- Order Details -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Order ID:</span>
+                            <span class="fw-bold">[[${order.id}]]</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Order Time:</span>
+                            <span>[[${#dates.format(order.orderTime, 'dd/MM/yyyy HH:mm')}]]</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Status:</span>
+                            <span class="badge bg-success">[[${order.status}]]</span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Cost Summary -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Subtotal:</span>
+                            <span>$[[${#numbers.formatDecimal(order.subtotal, 1, 2)}]]</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Shipping Cost:</span>
+                            <span>$[[${#numbers.formatDecimal(order.shippingCost, 1, 2)}]]</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Tax:</span>
+                            <span>$[[${#numbers.formatDecimal(order.tax, 1, 2)}]]</span>
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="border-top pt-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h6 mb-0">Total Amount:</span>
+                            <span class="h5 mb-0 text-primary">$[[${#numbers.formatDecimal(order.total, 1, 2)}]]</span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Payment Details -->
+                    <div>
+                        <h6 class="mb-3">Payment Information</h6>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Payment Method:</span>
+                            <span class="fw-bold">[[${order.paymentMethod}]]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

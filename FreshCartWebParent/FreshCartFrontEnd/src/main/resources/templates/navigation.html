@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<body>
+	<div th:fragment="header_menu">
+		<div class="bg-light py-1">
+			<div class="container">
+				 <div class="row">
+				  <div class="col-md-6 col-12 text-center text-md-start"><span>Super Value Deals - Save more with coupons</span></div>
+				  <div class="col-6 text-end d-none d-md-block">
+					 <div class="dropdown selectBox">
+						<a class="dropdown-toggle selectValue text-reset" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
+						   <span class="me-2">
+							  <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+								 <g clip-path="url(#selectedlang)">
+									<path d="M0 0.5H16V12.5H0V0.5Z" fill="#012169"></path>
+									<path d="M1.875 0.5L7.975 5.025L14.05 0.5H16V2.05L10 6.525L16 10.975V12.5H14L8 8.025L2.025 12.5H0V11L5.975 6.55L0 2.1V0.5H1.875Z" fill="white"></path>
+									<path d="M10.6 7.525L16 11.5V12.5L9.225 7.525H10.6ZM6 8.025L6.15 8.9L1.35 12.5H0L6 8.025ZM16 0.5V0.575L9.775 5.275L9.825 4.175L14.75 0.5H16ZM0 0.5L5.975 4.9H4.475L0 1.55V0.5Z" fill="#C8102E"></path>
+									<path d="M6.025 0.5V12.5H10.025V0.5H6.025ZM0 4.5V8.5H16V4.5H0Z" fill="white"></path>
+									<path d="M0 5.325V7.725H16V5.325H0ZM6.825 0.5V12.5H9.225V0.5H6.825Z" fill="#C8102E"></path>
+								 </g>
+								 <defs>
+									<clipPath id="selectedlang">
+									   <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
+									</clipPath>
+								 </defs>
+							  </svg>
+						   </span>
+						   English
+						</a>
+ 
+						<ul class="dropdown-menu">
+						   <li>
+							  <a class="dropdown-item" href="javascript:void(0)">
+								 <span class="me-2">
+									<svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+									   <g clip-path="url(#selectedlang)">
+										  <path d="M0 0.5H16V12.5H0V0.5Z" fill="#012169"></path>
+										  <path d="M1.875 0.5L7.975 5.025L14.05 0.5H16V2.05L10 6.525L16 10.975V12.5H14L8 8.025L2.025 12.5H0V11L5.975 6.55L0 2.1V0.5H1.875Z" fill="white"></path>
+										  <path d="M10.6 7.525L16 11.5V12.5L9.225 7.525H10.6ZM6 8.025L6.15 8.9L1.35 12.5H0L6 8.025ZM16 0.5V0.575L9.775 5.275L9.825 4.175L14.75 0.5H16ZM0 0.5L5.975 4.9H4.475L0 1.55V0.5Z" fill="#C8102E"></path>
+										  <path d="M6.025 0.5V12.5H10.025V0.5H6.025ZM0 4.5V8.5H16V4.5H0Z" fill="white"></path>
+										  <path d="M0 5.325V7.725H16V5.325H0ZM6.825 0.5V12.5H9.225V0.5H6.825Z" fill="#C8102E"></path>
+									   </g>
+									   <defs>
+										  <clipPath id="selectedlang">
+											 <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
+										  </clipPath>
+									   </defs>
+									</svg>
+								 </span>
+								 English
+							  </a>
+						   </li>
+						   <li>
+							  <a class="dropdown-item" href="javascript:void(0)">
+								 <span class="me-2">
+									<svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+									   <g clip-path="url(#clip0_5543_19751)">
+										  <path d="M0 8.5H16V12.5H0V8.5Z" fill="#FFCE00"></path>
+										  <path d="M0 0.5H16V4.5H0V0.5Z" fill="black"></path>
+										  <path d="M0 4.5H16V8.5H0V4.5Z" fill="#DD0000"></path>
+									   </g>
+									   <defs>
+										  <clipPath id="clip0_5543_19751">
+											 <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
+										  </clipPath>
+									   </defs>
+									</svg>
+								 </span>
+								 Deutsch
+							  </a>
+						   </li>
+						</ul>
+					 </div>
+				  </div>
+			   </div>
+			</div>
+		 </div>
+	</div>
+
+	<div th:fragment="search_nav">
+		<div class="py-5">
+			<div class="container">
+				<div class="row w-100 align-items-center gx-lg-2 gx-0">
+					<!-- Logo -->
+					<div class="col-xxl-2 col-lg-3 col-md-6 col-5">
+						<a class="navbar-brand d-none d-lg-block" th:href="@{/}">
+							<img th:src="@{${S3_BASE_URI + SITE_LOGO}}" alt="FreshCart" style="width: 150px; height: auto;" />
+						</a>
+						<div class="d-flex justify-content-between w-100 d-lg-none">
+							<a class="navbar-brand" th:href="@{/}">
+								<img th:src="@{${S3_BASE_URI + SITE_LOGO}}" alt="FreshCart" style="width: 150px; height: auto;" />
+							</a>
+						</div>
+					</div>
+
+					<!-- Search bar -->
+					<div class="col-xxl-5 col-lg-5 d-none d-lg-block">
+						<form th:action="@{/search}" method="get">
+							<div class="input-group">
+								<input type="search" name="keyword" class="form-control rounded"
+									   th:value="${searchKeyword}"
+									   placeholder="Search for products" required />
+								<span class="input-group-append">
+									<button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="submit">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
+											 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+											 class="feather feather-search">
+											<circle cx="11" cy="11" r="8"></circle>
+											<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+										</svg>
+									</button>
+								</span>
+							</div>
+						</form>
+					</div>
+
+					<!-- Spacer sau search bar -->
+					<div class="col-xxl-2 col-lg-2 d-none d-lg-block"></div>
+
+					<!-- Icons section -->
+					<div class="col-lg-2 text-end">
+						<div class="list-inline">
+							<!-- User Account -->
+							<div class="list-inline-item me-4">
+								<th:block sec:authorize="!isAuthenticated()">
+									<a th:href="@{/login}" class="text-muted">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
+											 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+											 class="feather feather-user">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+											<circle cx="12" cy="7" r="4"></circle>
+										</svg>
+									</a>
+								</th:block>
+								<th:block sec:authorize="isAuthenticated()">
+									<div class="nav-item dropdown">
+										<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+											<div class="avatar-circle-sm">
+												<span class="avatar-initials" 
+													  th:with="fullName=${#authentication.principal.fullName}"
+													  th:text="${#strings.substring(fullName,0,1) + 
+															   (#strings.length(fullName) > fullName.indexOf(' ') + 1 ? 
+															   #strings.substring(fullName, fullName.indexOf(' ') + 1, fullName.indexOf(' ') + 2) : '')}">
+												</span>
+											</div>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" th:href="@{/account_details}">Account</a></li>
+											<li><a class="dropdown-item" th:href="@{/orders}">Orders</a></li>
+											<li><a class="dropdown-item" th:href="@{/address_book}">Address</a></li>
+											<li><a class="dropdown-item" th:href="@{/reviews}">Reviews</a></li>
+											<li><hr class="dropdown-divider"></li>
+											<li><a class="dropdown-item text-danger" href="javascript: document.logoutForm.submit()">Logout</a></li>
+										</ul>
+									</div>
+								</th:block>
+							</div>
+
+							<!-- Shopping Cart -->
+							<div class="list-inline-item me-4">
+								<a class="text-muted position-relative" th:href="@{/cart}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
+										 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+										 class="feather feather-shopping-bag">
+										<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+										<line x1="3" y1="6" x2="21" y2="6"></line>
+										<path d="M16 10a4 4 0 0 1-8 0"></path>
+									</svg>
+									<span class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
+										  th:text="${session.totalCartItems != null and session.totalCartItems > 0 ? session.totalCartItems : ''}"
+										  th:style="${session.totalCartItems == null or session.totalCartItems == 0 ? 'display: none;' : ''}">
+									</span>
+								</a>
+							</div>
+
+							<!-- Theme switcher -->
+							<div class="list-inline-item">
+								<a href="#" class="text-muted" id="themeSwitcher">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
+										 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+										 class="feather feather-moon">
+										<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+									</svg>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
+
+	<div th:fragment="footer_menu">
+		<footer class="footer">
+			<!-- Main footer content -->
+			<div class="container py-5">
+				<div class="row justify-content-between">
+					<!-- Brand Description - Left Side -->
+					<div class="col-lg-3">
+						<h2 class="h5 mb-3">FreshCart</h2>
+						<p class="text-muted">With a wide selection of fresh produce, pantry staples, and household essentials, we've got everything you need just a click away.</p>
+						<!-- Social Media Icons -->
+						<div class="d-flex gap-3 mt-4 mb-4">
+							<a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
+							<a href="#" class="text-dark"><i class="bi bi-facebook"></i></a>
+							<a href="#" class="text-dark"><i class="bi bi-telegram"></i></a>
+							<a href="#" class="text-dark"><i class="bi bi-whatsapp"></i></a>
+						</div>
+					</div>
+
+					<!-- Footer Links - Right Side -->
+					<div class="col-lg-8">
+						<div class="row">
+							<!-- Categories Column -->
+							<div class="col-md-3">
+								<h5 class="mb-4">Sales</h5>
+								<ul class="list-unstyled">
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Weekly sale</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Special price</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Easter is coming</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Italian dinner</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Fresh fruits</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Exotic fruits</a></li>
+								</ul>
+							</div>
+
+							<!-- Company Column -->
+							<div class="col-md-3">
+								<h5 class="mb-4">Company</h5>
+								<ul class="list-unstyled">
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Blog and news</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">About us</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">FAQ page</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Contact us</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Careers</a></li>
+								</ul>
+							</div>
+
+							<!-- Account Column -->
+							<div class="col-md-3">
+								<h5 class="mb-4">Account</h5>
+								<ul class="list-unstyled">
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Your account</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping & policies</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & replacements</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order tracking</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery info</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Taxes & fees</a></li>
+								</ul>
+							</div>
+
+							<!-- Customer Service Column -->
+							<div class="col-md-3">
+								<h5 class="mb-4">Customer service</h5>
+								<ul class="list-unstyled">
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Payment methods</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Money back guarantee</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & replacements</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order tracking</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery info</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Payment Partners Section -->
+			<div class="border-top py-4">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-5 text-lg-start text-center mb-2 mb-lg-0">
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item text-dark">Payment Partners</li>
+								<li class="list-inline-item">
+									<a href="#!"><img th:src="@{/images/payment/amazonpay.svg}" alt=""></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#!"><img th:src="@{/images/payment/american-express.svg}" alt=""></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#!"><img th:src="@{/images/payment/mastercard.svg}" alt=""></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#!"><img th:src="@{/images/payment/paypal.svg}" alt=""></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#!"><img th:src="@{/images/payment/visa.svg}" alt=""></a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-lg-7 mt-4 mt-md-0">
+							<ul class="list-inline mb-0 text-lg-end text-center">
+								<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with FreshCart</li>
+								<li class="list-inline-item ms-4">
+									<a href="#!"> <img th:src="@{/images/appbutton/appstore-btn.svg}" alt="" style="width: 140px;"></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#!"> <img th:src="@{/images/appbutton/googleplay-btn.svg}" alt="" style="width: 140px;"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Copyright Section -->
+			<div class="border-top py-4">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6">
+							<span class="small text-muted">[[${COPYRIGHT}]]</span>
+						</div>
+						<div class="col-md-6">
+							<ul class="list-inline text-md-end mb-0 small mt-3 mt-md-0">
+								<li class="list-inline-item text-muted">Follow us on</li>
+								<li class="list-inline-item me-1">
+									<a href="#!" class="btn btn-xs btn-social btn-icon">
+										<i class="bi bi-facebook"></i>
+									</a>
+								</li>
+								<li class="list-inline-item me-1">
+									<a href="#!" class="btn btn-xs btn-social btn-icon">
+										<i class="bi bi-twitter"></i>
+									</a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#!" class="btn btn-xs btn-social btn-icon">
+										<i class="bi bi-instagram"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<div th:fragment="category_nav" class="navbar navbar-expand-lg navbar-light navbar-default p-0 p-sm-0 navbar-offcanvas-color">
+		<div class="container">
+			<!-- Toggler button for mobile -->
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarNav" aria-controls="navbarNav"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Navbar items -->
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav align-items-center">
+					<!-- All Categories Dropdown -->
+					<li class="nav-item dropdown mega-menu me-6 d-none d-lg-block">
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								 class="bi bi-text-left me-2" viewBox="0 0 16 16">
+								<path fill-rule="evenodd"
+									  d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z">
+								</path>
+							</svg>
+							All Categories
+						</a>
+
+						<div class="dropdown-menu">
+							<div class="main-categories">
+								<th:block th:each="cat : ${listCategories}">
+									<!-- Main category wrapper -->
+									<div class="category-wrapper">
+										<!-- Main category item -->
+										<a class="dropdown-item" href="#"
+										   th:href="@{'/category/' + ${cat.alias}}"
+										   th:classappend="${cat.name == selectedMainCategory ? 'active' : ''}">
+											<span th:text="${cat.name}"></span>
+											<i th:if="${not #lists.isEmpty(cat.children)}"
+											   class="bi bi-chevron-right"></i>
+										</a>
+										
+										<!-- Sub categories -->
+										<div class="subcategory-group" th:if="${not #lists.isEmpty(cat.children)}">
+											<th:block th:each="subCat : ${cat.children}">
+												<!-- Sub category wrapper -->
+												<div class="subcategory-wrapper">
+													<!-- Sub category item -->
+													<a class="dropdown-item" href="#"
+													   th:href="@{'/category/' + ${subCat.alias}}"
+													   th:classappend="${subCat.name == selectedSubCategory ? 'active' : ''}">
+														<span th:text="${subCat.name}"></span>
+														<i th:if="${not #lists.isEmpty(subCat.children)}"
+														   class="bi bi-chevron-right"></i>
+													</a>
+													
+													<!-- Child categories -->
+													<div class="childcategory-group"
+														 th:if="${not #lists.isEmpty(subCat.children)}">
+														<th:block th:each="childCat : ${subCat.children}">
+															<a class="dropdown-item" href="#"
+															   th:href="@{'/category/' + ${childCat.alias}}"
+															   th:text="${childCat.name}">
+															</a>
+														</th:block>
+													</div>
+												</div>
+											</th:block>
+										</div>
+									</div>
+								</th:block>
+							</div>
+						</div>
+					</li>
+
+					<!-- Other nav items -->
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/promotions}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								 class="bi bi-percent me-2" viewBox="0 0 16 16">
+								<path d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+							</svg>
+							Promotion
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/best-sellers}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								 class="bi bi-star me-2" viewBox="0 0 16 16">
+								<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+							</svg>
+							Best Sellers
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/new-products}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								 class="bi bi-box-seam me-2" viewBox="0 0 16 16">
+								<path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+							</svg>
+							New Arrival
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

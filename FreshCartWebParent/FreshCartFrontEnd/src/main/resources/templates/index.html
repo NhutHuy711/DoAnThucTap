@@ -17,12 +17,10 @@
                     <!-- Slider item 1 -->
                     <div th:style="'background: url(' + @{/images/slider/slider-1.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
                         <div class="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-14 px-8 text-xs-center">
-                            <span class="badge text-bg-warning">Opening Sale Discount 50%</span>
-                            <h2 class="text-dark display-5 fw-bold mt-4">SuperMarket For Fresh Grocery </h2>
-                            <p class="lead">Introduced a new model for online grocery shopping and convenient home
-                                delivery.</p>
-                            <a href="#!" class="btn btn-dark mt-3">Shop Now <i
-                                    class="feather-icon icon-arrow-right ms-1"></i></a>
+                            <span class="badge text-bg-warning">Grand Opening – Up to 50% Off</span>
+                            <h2 class="text-dark display-5 fw-bold mt-4">TechLap – Your Trusted Laptop Store</h2>
+                            <p class="lead">Redefining how you shop laptops online with fast delivery and unbeatable service.</p>
+                            <a href="#!" class="btn btn-dark mt-3">Shop Now <i class="feather-icon icon-arrow-right ms-1"></i></a>
                         </div>
                     </div>
 
@@ -30,23 +28,19 @@
                     <div th:style="'background: url(' + @{/images/slider/hero-img-slider-2.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
                         <div class="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-14 px-8 text-xs-center">
                             <span class="badge text-bg-danger">Hot Deals</span>
-                            <h2 class="text-dark display-5 fw-bold mt-4">Fresh Vegetables & Fruits</h2>
-                            <p class="lead">Get up to 50% off on your first order. Shop now for fresh and healthy
-                                products.</p>
-                            <a href="#!" class="btn btn-danger mt-3">Shop Now <i
-                                    class="feather-icon icon-arrow-right ms-1"></i></a>
+                            <h2 class="text-dark display-5 fw-bold mt-4">Latest Laptops at Best Prices</h2>
+                            <p class="lead">Enjoy up to 50% off on your first purchase. Shop now for genuine and high-performance tech products.</p>
+                            <a href="#!" class="btn btn-danger mt-3">Shop Now <i class="feather-icon icon-arrow-right ms-1"></i></a>
                         </div>
                     </div>
 
                     <!-- Slider item 3 -->
                     <div th:style="'background: url(' + @{/images/slider/slider-2.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
                         <div class="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-14 px-8 text-xs-center">
-                            <span class="badge text-bg-success">Organic Food</span>
-                            <h2 class="text-dark display-5 fw-bold mt-4">100% Organic & Natural</h2>
-                            <p class="lead">Healthy living starts with healthy eating. Discover our organic
-                                collection.</p>
-                            <a href="#!" class="btn btn-success mt-3">Explore Now <i
-                                    class="feather-icon icon-arrow-right ms-1"></i></a>
+                            <span class="badge text-bg-success">Genuine Products</span>
+                            <h2 class="text-dark display-5 fw-bold mt-4">100% Authentic & Brand New</h2>
+                            <p class="lead">Start your tech journey with our certified laptops and accessories – guaranteed genuine.</p>
+                            <a href="#!" class="btn btn-success mt-3">Explore Now <i class="feather-icon icon-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -67,52 +61,15 @@
                             <div class="card card-product mb-lg-4">
                                 <div class="card-body text-center py-8 d-flex flex-column align-items-center justify-content-center category-card">
                                     <div class="category-image-wrapper">
-                                        <img th:if="${cat.image != null}" 
-                                             th:src="@{${cat.imagePath}}" 
-                                             th:alt="${cat.name}" 
+                                        <img th:if="${cat.image != null}"
+                                             th:src="@{${cat.imagePath}}"
+                                             th:alt="${cat.name}"
                                              class="category-image">
                                     </div>
                                     <div class="text-truncate mt-3" th:text="${cat.name}">Category Name</div>
                                 </div>
                             </div>
                         </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3 mb-lg-0">
-                        <div>
-                            <div class="py-10 px-8 rounded" th:style="'background: url(' + @{/images/banner/grocery-banner.png} + ') no-repeat; background-size: cover; background-position: center'">
-                                <div>
-                                    <h3 class="fw-bold mb-1">Fruits &amp; Vegetables</h3>
-                                    <p class="mb-4">
-                                        Get Upto
-                                        <span class="fw-bold">30%</span>
-                                        Off
-                                    </p>
-                                    <a href="#!" class="btn btn-dark">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div>
-                            <div class="py-10 px-8 rounded" th:style="'background: url(' + @{/images/banner/grocery-banner-2.jpg} + ') no-repeat; background-size: cover; background-position: center'">
-                                <div>
-                                    <h3 class="fw-bold mb-1">Freshly Baked Buns</h3>
-                                    <p class="mb-4">
-                                        Get Upto
-                                        <span class="fw-bold">25%</span>
-                                        Off
-                                    </p>
-                                    <a href="#!" class="btn btn-dark">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -181,7 +138,7 @@
             </div>
         </section>
 
-    
+
 
 </main>
 <section class="my-lg-14 mb-8">
@@ -190,32 +147,31 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/clock.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">10 minute grocery now</h3>
-                        <p>Get your order delivered to your doorstep at the earliest from FreshCart pickup stores near you.</p>
+                        <h3 class="h5 mb-3">Superfast Laptop Delivery in 10 Minutes</h3>
+                        <p>Place your order now at TechLap and receive your laptop at home from the nearest store.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/gift.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Best Prices &amp; Offers</h3>
-                        <p>Cheaper prices than your local supermarket, great cashback offers to top it off. Get best pricess &amp; offers.</p>
+                        <h3 class="h5 mb-3">Best Laptop Deals & Exclusive Offers</h3>
+                        <p>Better prices than retail stores, plus exclusive cashback and promotions. Shop smart at TechLap.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/package.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Wide Assortment</h3>
-                        <p>Choose from 5000+ products across food, personal care, household, bakery, veg and non-veg &amp; other categories.</p>
+                        <h3 class="h5 mb-3">Wide Selection of Products</h3>
+                        <p>Explore a wide range of laptops, accessories, and tech gadgets tailored for study, work, and entertainment.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/refresh-cw.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Easy Returns</h3>
+                        <h3 class="h5 mb-3">Hassle-Free Returns</h3>
                         <p>
-                            Not satisfied with a product? Return it at the doorstep &amp; get a refund within hours. No questions asked
-                            <a href="#!">policy</a>
-                            .
+                            Not satisfied with your laptop or accessory? Return it right at your doorstep and receive a quick refund – no questions asked.
+                            <a href="#!">Return policy</a>.
                         </p>
                     </div>
                 </div>

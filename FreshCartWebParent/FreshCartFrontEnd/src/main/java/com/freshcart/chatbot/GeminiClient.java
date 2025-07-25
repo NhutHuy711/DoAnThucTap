@@ -4,15 +4,14 @@ import java.net.URI;
 import java.net.http.*;
 import java.nio.charset.StandardCharsets;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.*;
 
 public class GeminiClient {
 
-    private static final String COPILOT_API_KEY = System.getenv("COPILOT_API_KEY");
+    private static final String GEMINI_API_KEY = System.getenv("GEMINI_API_KEY");
 
-    private static final String ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + COPILOT_API_KEY;
+    private static final String ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + GEMINI_API_KEY;
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 

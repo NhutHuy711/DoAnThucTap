@@ -16,4 +16,11 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
 
     @Query("SELECT b FROM Brand b WHERE b.enabled = true ORDER BY b.name ASC")
     public List<Brand> findAllOrderByNameAsc();
+
+    @Query("SELECT b FROM Brand b WHERE b.enabled = true AND b.name = ?1")
+    public Brand findByNameEnabled(String name);
+
+    @Query("SELECT b FROM Brand b WHERE LOWER(b.name) = LOWER(?1) AND b.enabled = true")
+    public Brand findByNameIgnoreCase(String name);
+
 }

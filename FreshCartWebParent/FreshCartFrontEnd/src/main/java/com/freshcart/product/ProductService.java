@@ -106,6 +106,16 @@ public class ProductService {
         return repo.findAll(spec, pageable);
     }
 
+    public Page<Product> listByBrand(Specification<Product> spec, Pageable pageable, Integer brandId) {
+        // Nếu đang sắp xếp theo bán chạy
+        if (pageable.getSort().equals(Sort.by("id"))) {
+            return repo.findAllOrderByMostSoldByBrand(brandId, pageable);
+        }
+
+        // Ngược lại thì lọc bằng Specification
+        return repo.findAll(spec, pageable);
+    }
+
     public List<Product> listNewProducts() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> page = repo.findNewProducts(pageable);

@@ -8,6 +8,7 @@ import com.freshcart.common.entity.Category;
 import com.freshcart.common.entity.Customer;
 import com.freshcart.common.entity.Review;
 import com.freshcart.common.entity.product.Product;
+import com.freshcart.common.exception.BrandNotFoundException;
 import com.freshcart.common.exception.CategoryNotFoundException;
 import com.freshcart.common.exception.ProductNotFoundException;
 import com.freshcart.review.ReviewService;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -155,6 +158,74 @@ public class ProductController {
             return "error/404";
         }
     }
+
+    @GetMapping("/brand/{name}")
+    public String viewBrand(@PathVariable("name") String encodedName,
+                            @RequestParam(defaultValue = "1") int pageNum,
+                            @RequestParam(required = false) String brands,
+                            @RequestParam(required = false) Integer rating,
+                            @RequestParam(required = false) Float minPrice,
+                            @RequestParam(required = false) Float maxPrice,
+                            @RequestParam(required = false) String priceRange,
+                            @RequestParam(defaultValue = "LOW_TO_HIGH") String sort,
+                            Model model,
+                            HttpServletRequest request) {
+        try {
+            // Lấy brand theo name
+            String name = URLDecoder.decode(encodedName, StandardCharsets.UTF_8);
+            Brand brand = brandService.getBrand(name);
+            List<Category> listCategories = categoryService.listHierarchicalCategories();
+
+            // Tách tên brand filter (nếu có)
+            List<String> brandNames = brands != null ?
+                    Arrays.asList(brands.split(",")) : new ArrayList<>();
+
+            // Tạo spec tìm theo brand
+            Specification<Product> spec = ProductSpecification.hasBrand(brand.getName());
+
+            // Bổ sung filter rating
+            if (rating != null) {
+                spec = spec.and(ProductSpecification.hasRating(rating));
+            }
+
+            // Bổ sung filter giá
+            if (priceRange != null) {
+                spec = spec.and(ProductSpecification.hasPriceRange(priceRange));
+            } else if (minPrice != null || maxPrice != null) {
+                spec = spec.and(ProductSpecification.hasPriceBetween(minPrice, maxPrice));
+            }
+
+            // Xử lý phân trang
+            Sort sortOption = ProductSpecification.getSort(sort);
+            Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sortOption);
+            Page<Product> pageProducts = productService.listByBrand(spec, pageable, brand.getId());
+
+            // Truy xuất các thương hiệu cùng phân khúc
+            List<Brand> listBrands = brandService.listAll();
+
+            // Gửi dữ liệu về view
+            model.addAttribute("totalPages", pageProducts.getTotalPages());
+            model.addAttribute("totalItems", pageProducts.getTotalElements());
+            model.addAttribute("currentPage", pageNum);
+            model.addAttribute("listProducts", pageProducts.getContent());
+            model.addAttribute("listBrands", listBrands);
+            model.addAttribute("brand", brand);
+            model.addAttribute("selectedBrands", brand.getName());
+            model.addAttribute("pageTitle", brand.getName());
+            model.addAttribute("currentSort", sort);
+            model.addAttribute("listCategories", listCategories);
+
+            if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+                return "product/product_fragment :: productList";
+            }
+
+            return "product/products_by_brand";
+
+        } catch (BrandNotFoundException e) {
+            return "error/404";
+        }
+    }
+
 
     @GetMapping("/search")
     public String searchFirstPage(@RequestParam(required = false) String keyword, Model model) {

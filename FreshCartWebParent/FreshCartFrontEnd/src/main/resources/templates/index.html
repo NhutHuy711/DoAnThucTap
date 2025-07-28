@@ -56,17 +56,18 @@
                     </div>
                 </div>
                 <div class="category-slider">
-                    <div class="item" th:each="cat : ${listCategories}">
-                        <a th:href="@{'/category/' + ${cat.alias}}" class="text-decoration-none text-inherit">
+                    <div class="item" th:each="brand : ${listBrands}">
+                        <a th:href="@{'/brand/' + ${#uris.escapePath(brand.name)}}"
+                           class="text-decoration-none d-block">
                             <div class="card card-product mb-lg-4">
                                 <div class="card-body text-center py-8 d-flex flex-column align-items-center justify-content-center category-card">
                                     <div class="category-image-wrapper">
-                                        <img th:if="${cat.image != null}"
-                                             th:src="@{${cat.imagePath}}"
-                                             th:alt="${cat.name}"
+                                        <img th:if="${brand.logo != null}"
+                                             th:src="@{${brand.logoPath}}"
+                                             th:alt="${brand.name}"
                                              class="category-image">
                                     </div>
-                                    <div class="text-truncate mt-3" th:text="${cat.name}">Category Name</div>
+                                    <div class="text-truncate mt-3" th:text="${brand.name}">Brand Name</div>
                                 </div>
                             </div>
                         </a>

@@ -57,6 +57,16 @@ public class ProductSpecification {
         };
     }
 
+    public static Specification<Product> hasBrand(String brandName) {
+        return (root, query, cb) -> {
+            if (brandName == null || brandName.trim().isEmpty()) {
+                return null;
+            }
+            Join<Product, Brand> brandJoin = root.join("brand");
+            return cb.equal(cb.lower(brandJoin.get("name")), brandName.toLowerCase());
+        };
+    }
+
     public static Specification<Product> hasBrands(List<String> brandNames) {
         return (root, query, cb) -> {
             if (brandNames == null || brandNames.isEmpty()) {

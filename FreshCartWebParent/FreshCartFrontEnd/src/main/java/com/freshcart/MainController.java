@@ -1,6 +1,8 @@
 package com.freshcart;
 
+import com.freshcart.brand.BrandService;
 import com.freshcart.category.CategoryService;
+import com.freshcart.common.entity.Brand;
 import com.freshcart.common.entity.Category;
 import com.freshcart.product.ProductService;
 import com.freshcart.common.entity.product.Product;
@@ -25,10 +27,13 @@ public class MainController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private BrandService brandService;
 
     @GetMapping("")
     public String viewHomePage(Model model) {
-        List<Category> listCategories = categoryService.listHierarchicalCategories();
+        //List<Category> listCategories = categoryService.listHierarchicalCategories();
+        List<Brand> listBrands = brandService.listAll();
         
         // Thêm danh sách sản phẩm cho trang chủ
         List<Product> listNewProducts = productService.listNewProducts();
@@ -36,7 +41,8 @@ public class MainController {
         List<Product> listBestSellers = productService.listBestSellingProducts(10); // Lấy top 10 sản phẩm bán chạy
 
 
-        model.addAttribute("listCategories", listCategories);
+        //model.addAttribute("listCategories", listCategories);
+        model.addAttribute("listBrands", listBrands);
         model.addAttribute("listNewProducts", listNewProducts);
         model.addAttribute("listSpecialOffers", listSpecialOffers);
          model.addAttribute("listBestSellers", listBestSellers);

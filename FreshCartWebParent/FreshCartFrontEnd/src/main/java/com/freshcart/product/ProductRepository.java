@@ -10,6 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.freshcart.common.entity.product.Product;
 
+import java.util.List;
+
 public interface ProductRepository extends JpaRepository<Product, Integer>, 
                                          JpaSpecificationExecutor<Product> {
 
@@ -64,5 +66,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>,
             "WHERE p.brand.id = ?1 GROUP BY p.id ORDER BY SUM(od.quantity) DESC")
     Page<Product> findAllOrderByMostSoldByBrand(Integer brandId, Pageable pageable);
 
+    @Query("SELECT p FROM Product p WHERE p.enabled = true AND p.brand.enabled = true AND p.category.enabled = true")
+    List<Product> findAllEnabled();
 
 }

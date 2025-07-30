@@ -3,6 +3,7 @@ package com.freshcart.product;
 import com.freshcart.common.entity.Brand;
 import com.freshcart.common.entity.Brand_;
 import com.freshcart.common.entity.product.Product;
+import com.freshcart.common.entity.product.ProductDetail;
 import com.freshcart.common.entity.product.Product_;
 import com.freshcart.common.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository repo;
+
+    @Autowired
+    private ProductDetailRepository productDetailRepository;
 
     public Page<Product> listByCategory(int pageNum, Integer categoryId,
                                         List<String> brandNames, Integer rating,
@@ -141,4 +145,11 @@ public class ProductService {
         return repo.findTopByNameContainingIgnoreCase(name);
     }
 
+    public List<Product> findAllEnabled() {
+        return repo.findAllEnabled();
+    }
+
+    public List<ProductDetail> getProductDetails(Integer productId) {
+        return productDetailRepository.findByProductId(productId);
+    }
 }

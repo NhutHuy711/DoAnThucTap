@@ -52,7 +52,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 mb-6">
-                        <h3 class="mb-0">Featured Categories</h3>
+                        <h3 class="mb-0">Featured Brands</h3>
                     </div>
                 </div>
                 <div class="category-slider">
@@ -194,7 +194,7 @@
 <script type="text/javascript" th:src="@{/js/slick-slider.js}"></script>
 <script type="text/javascript" th:src="@{/js/common_toast.js}"></script>
 <script type="text/javascript" th:src="@{/js/cart.js}"></script>
-
+<script type="text/javascript" th:src="@{/js/list_brand_categories.js}"></script>
 <!-- <script type="text/javascript" th:src="@{/js/theme-switcher.js}"></script> -->
 
     <!-- Chatbot UI -->
@@ -212,48 +212,9 @@
         </button>
     </div>
 
-    <script>
-        // Lấy context path từ Thymeleaf
-        const contextPath = "[[@{/}]]";  // Sẽ resolve thành "/FreshCart/"
 
-        function toggleChatbox() {
-            const box = document.getElementById('chatbox');
-            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
-        }
 
-        async function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const chatlog = document.getElementById('chatlog');
-            const message = input.value.trim();
-            if (message === "") return;
 
-            // Hiển thị câu hỏi người dùng
-            chatlog.innerHTML += `<div><b>Bạn:</b> ${message}</div>`;
-            input.value = "";
-
-            try {
-                const response = await fetch(contextPath + "chatbot/ask", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        [csrfHeaderName]: csrfValue
-                    },
-                    body: JSON.stringify(message)
-                });
-
-                const data = await response.json();
-
-                let answer = data.reply || "Không có phản hồi";
-
-                chatlog.innerHTML += `<div><b>Gemini:</b> ${answer}</div>`;
-                chatlog.scrollTop = chatlog.scrollHeight;
-            } catch (err) {
-                chatlog.innerHTML += `<div><b>Lỗi:</b> Không thể gửi câu hỏi (${err.message})</div>`;
-                console.error("Lỗi gửi câu hỏi:", err);
-            }
-        }
-
-    </script>
 
 </body>
 

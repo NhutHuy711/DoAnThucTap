@@ -30,6 +30,7 @@ public class Brand extends IdBasedEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories = new HashSet<>();
+
     private boolean enabled;
 
     public Brand() {

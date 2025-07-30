@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,20 +33,26 @@ public class MainController {
 
     @GetMapping("")
     public String viewHomePage(Model model) {
-        //List<Category> listCategories = categoryService.listHierarchicalCategories();
+        List<Category> listCategories = categoryService.listHierarchicalCategories();
         List<Brand> listBrands = brandService.listAll();
+        Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+        for (Brand brand : listBrands) {
+            List<Category> categories = categoryService.listCategoriesByBrand(brand.getId());
+            brandCategoriesMap.put(brand, categories);
+        }
         
         // Thêm danh sách sản phẩm cho trang chủ
         List<Product> listNewProducts = productService.listNewProducts();
         List<Product> listSpecialOffers = productService.listSpecialOffers();
         List<Product> listBestSellers = productService.listBestSellingProducts(10); // Lấy top 10 sản phẩm bán chạy
 
-
-        //model.addAttribute("listCategories", listCategories);
+        model.addAttribute("brandCategoriesMap", brandCategoriesMap);
+        model.addAttribute("listCategories", listCategories);
         model.addAttribute("listBrands", listBrands);
         model.addAttribute("listNewProducts", listNewProducts);
         model.addAttribute("listSpecialOffers", listSpecialOffers);
-         model.addAttribute("listBestSellers", listBestSellers);
+        model.addAttribute("listBestSellers", listBestSellers);
         
         return "index";
     }

@@ -28,9 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ProductController {
@@ -100,7 +98,16 @@ public class ProductController {
             Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sortOption);
             Page<Product> pageProducts = productService.listByPage(spec, pageable, category.getId());
 
+            List<Brand> listB = brandService.listAll();
+            Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+            for (Brand b : listB) {
+                List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+                brandCategoriesMap.put(b, categories);
+            }
+
             // Add attributes to model
+            model.addAttribute("brandCategoriesMap", brandCategoriesMap);
             model.addAttribute("totalPages", pageProducts.getTotalPages());
             model.addAttribute("totalItems", pageProducts.getTotalElements());
             model.addAttribute("currentPage", pageNum);
@@ -147,6 +154,16 @@ public class ProductController {
                 }
             }
 
+            List<Brand> listBrands = brandService.listAll();
+            Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+            for (Brand b : listBrands) {
+                List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+                brandCategoriesMap.put(b, categories);
+            }
+
+            // Gửi dữ liệu về view
+            model.addAttribute("brandCategoriesMap", brandCategoriesMap);
             model.addAttribute("listCategoryParents", listCategoryParents);
             model.addAttribute("product", product);
             model.addAttribute("listReviews", listReviews);
@@ -203,7 +220,15 @@ public class ProductController {
             // Truy xuất các thương hiệu cùng phân khúc
             List<Brand> listBrands = brandService.listAll();
 
+            Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+            for (Brand b : listBrands) {
+                List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+                brandCategoriesMap.put(b, categories);
+            }
+
             // Gửi dữ liệu về view
+            model.addAttribute("brandCategoriesMap", brandCategoriesMap);
             model.addAttribute("totalPages", pageProducts.getTotalPages());
             model.addAttribute("totalItems", pageProducts.getTotalElements());
             model.addAttribute("currentPage", pageNum);
@@ -248,6 +273,16 @@ public class ProductController {
             Page<Product> pageProducts = productService.search(keyword, pageNum);
             List<Product> listProducts = pageProducts.getContent();
             List<Category> listCategories = categoryService.listHierarchicalCategories();
+            List<Brand> listB = brandService.listAll();
+            Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+            for (Brand b : listB) {
+                List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+                brandCategoriesMap.put(b, categories);
+            }
+
+            // Add attributes to model
+            model.addAttribute("brandCategoriesMap", brandCategoriesMap);
 
             model.addAttribute("currentPage", pageNum);
             model.addAttribute("totalPages", pageProducts.getTotalPages());
@@ -270,6 +305,16 @@ public class ProductController {
     public String viewNewProducts(Model model) {
         List<Product> listProducts = productService.listNewProducts();
         List<Category> listCategories = categoryService.listHierarchicalCategories();
+        List<Brand> listB = brandService.listAll();
+        Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+        for (Brand b : listB) {
+            List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+            brandCategoriesMap.put(b, categories);
+        }
+
+        // Add attributes to model
+        model.addAttribute("brandCategoriesMap", brandCategoriesMap);
         model.addAttribute("listProducts", listProducts);
         model.addAttribute("listCategories", listCategories);
         return "new_products";
@@ -279,6 +324,16 @@ public class ProductController {
     public String viewPromotions(Model model) {
         List<Product> listProducts = productService.listSpecialOffers();
         List<Category> listCategories = categoryService.listHierarchicalCategories();
+        List<Brand> listB = brandService.listAll();
+        Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+        for (Brand b : listB) {
+            List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+            brandCategoriesMap.put(b, categories);
+        }
+
+        // Add attributes to model
+        model.addAttribute("brandCategoriesMap", brandCategoriesMap);
         model.addAttribute("listProducts", listProducts);
         model.addAttribute("listCategories", listCategories);
         return "promotions";
@@ -288,6 +343,16 @@ public class ProductController {
     public String viewBestSellers(Model model) {
         List<Product> listProducts = productService.listBestSellingProducts(34);
         List<Category> listCategories = categoryService.listHierarchicalCategories();
+        List<Brand> listB = brandService.listAll();
+        Map<Brand, List<Category>> brandCategoriesMap = new LinkedHashMap<>();
+
+        for (Brand b : listB) {
+            List<Category> categories = categoryService.listCategoriesByBrand(b.getId());
+            brandCategoriesMap.put(b, categories);
+        }
+
+        // Add attributes to model
+        model.addAttribute("brandCategoriesMap", brandCategoriesMap);
         model.addAttribute("listProducts", listProducts);
         model.addAttribute("listCategories", listCategories);
         return "best_sellers";

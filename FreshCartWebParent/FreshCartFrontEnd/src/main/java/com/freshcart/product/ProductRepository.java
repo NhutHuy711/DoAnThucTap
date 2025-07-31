@@ -10,6 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.freshcart.common.entity.product.Product;
 
+import java.util.List;
+
 public interface ProductRepository extends JpaRepository<Product, Integer>, 
                                          JpaSpecificationExecutor<Product> {
 
@@ -59,5 +61,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer>,
            "GROUP BY p " +
            "ORDER BY COALESCE(SUM(CASE WHEN o.status = 'DELIVERED' THEN od.quantity ELSE 0 END), 0) DESC")
     Page<Product> findAllOrderByMostSold(Integer categoryId, String categoryIDMatch, Pageable pageable);
+
+    @Query("SELECT p FROM Product p JOIN OrderDetail od ON od.product.id = p.id " +
+            "WHERE p.brand.id = ?1 GROUP BY p.id ORDER BY SUM(od.quantity) DESC")
+    Page<Product> findAllOrderByMostSoldByBrand(Integer brandId, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.enabled = true AND p.brand.enabled = true AND p.category.enabled = true")
+    List<Product> findAllEnabled();
 
 }

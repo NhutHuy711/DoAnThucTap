@@ -45,4 +45,8 @@ public class CategoryService {
 
         return listParents;
     }
+
+    public List<Category> listCategoriesByBrand(Integer brandId) {
+        return repo.findByBrands_IdAndEnabledTrue(brandId);
+    }
 }

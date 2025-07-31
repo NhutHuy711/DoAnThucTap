@@ -52,21 +52,22 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 mb-6">
-                        <h3 class="mb-0">Featured Categories</h3>
+                        <h3 class="mb-0">Featured Brands</h3>
                     </div>
                 </div>
                 <div class="category-slider">
-                    <div class="item" th:each="cat : ${listCategories}">
-                        <a th:href="@{'/category/' + ${cat.alias}}" class="text-decoration-none text-inherit">
+                    <div class="item" th:each="brand : ${listBrands}">
+                        <a th:href="@{'/brand/' + ${#uris.escapePath(brand.name)}}"
+                           class="text-decoration-none d-block">
                             <div class="card card-product mb-lg-4">
                                 <div class="card-body text-center py-8 d-flex flex-column align-items-center justify-content-center category-card">
                                     <div class="category-image-wrapper">
-                                        <img th:if="${cat.image != null}"
-                                             th:src="@{${cat.imagePath}}"
-                                             th:alt="${cat.name}"
+                                        <img th:if="${brand.logo != null}"
+                                             th:src="@{${brand.logoPath}}"
+                                             th:alt="${brand.name}"
                                              class="category-image">
                                     </div>
-                                    <div class="text-truncate mt-3" th:text="${cat.name}">Category Name</div>
+                                    <div class="text-truncate mt-3" th:text="${brand.name}">Brand Name</div>
                                 </div>
                             </div>
                         </a>
@@ -193,7 +194,7 @@
 <script type="text/javascript" th:src="@{/js/slick-slider.js}"></script>
 <script type="text/javascript" th:src="@{/js/common_toast.js}"></script>
 <script type="text/javascript" th:src="@{/js/cart.js}"></script>
-
+<script type="text/javascript" th:src="@{/js/list_brand_categories.js}"></script>
 <!-- <script type="text/javascript" th:src="@{/js/theme-switcher.js}"></script> -->
 
     <!-- Chatbot UI -->
@@ -253,6 +254,8 @@
         }
 
     </script>
+
+
 
 </body>
 

@@ -17,5 +17,7 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
     @Query("SELECT DISTINCT c FROM Category c LEFT JOIN FETCH c.children WHERE c.parent IS NULL AND c.enabled = true ORDER BY c.name ASC")
     public List<Category> findRootCategories();
 
+    @Query("SELECT DISTINCT c FROM Category c JOIN c.brands b WHERE b.id = ?1 AND c.enabled = true ORDER BY c.name ASC")
+    List<Category> findByBrands_IdAndEnabledTrue(Integer brandId);
 
 }

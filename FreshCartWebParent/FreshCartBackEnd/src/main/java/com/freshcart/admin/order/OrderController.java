@@ -147,6 +147,12 @@ public class OrderController {
         return defaultRedirectURL;
     }
 
+    @GetMapping("/orders/print/{id}")
+    public String printOrder(@PathVariable("id") Integer id, Model model) throws OrderNotFoundException {
+        Order order = orderService.get(id);
+        model.addAttribute("order", order);
+        return "orders/order_print"; // tạo một file order_print.html để hiển thị thông tin cần in
+    }
 
     private Map<Integer, String> checkProductStock(Order order, HttpServletRequest request) throws ProductNotFoundException {
         String[] productIds = request.getParameterValues("productId");

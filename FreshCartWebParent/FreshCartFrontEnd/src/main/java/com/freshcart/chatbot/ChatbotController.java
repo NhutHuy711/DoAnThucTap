@@ -1,9 +1,11 @@
+/*
 package com.freshcart.chatbot;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.freshcart.common.entity.product.Product;
 import com.freshcart.common.entity.product.ProductDetail;
+import com.freshcart.product.EmbeddingSearchService;
 import com.freshcart.product.ProductClassifier;
 import com.freshcart.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class ChatbotController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private EmbeddingSearchService embeddingSearchService;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -73,20 +78,25 @@ public class ChatbotController {
 
             // ── Bước 2: Truy xuất dữ liệu sản phẩm ───────────────────────
             if (!productName.isEmpty()) {
-                Product product = productService.findByProductName(productName);
-                if (product != null) {
-                    List<ProductDetail> details = productService.getProductDetails(product.getId());
-                    String classified = ProductClassifier.classify(product, details);
+                List<Product> products = embeddingSearchService.findTopKProducts(productName, 3);
 
-                    // Nếu Gemini đoán khác classifier → ưu tiên classifier
-                    if (!category.equals(classified)) {
-                        category = classified;
+                if (!products.isEmpty()) {
+                    StringBuilder sb = new StringBuilder("Mình tìm thấy một số sản phẩm khớp với yêu cầu của bạn:<br><ul>");
+                    for (Product product : products) {
+                        List<ProductDetail> details = productService.getProductDetails(product.getId());
+                        String classified = ProductClassifier.classify(product, details);
+                        if (!category.equals(classified)) {
+                            category = classified;
+                        }
+                        String productUrl = String.format("http://localhost:8081/FreshCart/p/%s", product.getAlias());
+                            sb.append(String.format(
+                            "<li><b>%s</b>: %,.0f VNĐ, số lượng còn: %d<br>"
+                            + "<a href='%s' target='_blank'>Xem chi tiết</a></li>",
+                            product.getName(), product.getPrice(), product.getInStock(), productUrl
+                        ));
                     }
-
-                    productInfo = String.format(
-                            "Tên: %s, số lượng còn: %d, giá: %,.0f VNĐ, dòng: %s",
-                            product.getName(), product.getInStock(), product.getPrice(), category
-                    );
+                    sb.append("</ul>");
+                    productInfo = sb.toString();
                 } else {
                     productInfo = "Không tìm thấy sản phẩm nào có tên \"" + productName + "\".";
                 }
@@ -129,10 +139,10 @@ public class ChatbotController {
                     %s
                     
                     Lưu ý:
-                        - Luôn hiển thị link "Xem chi tiết" đi kèm mỗi sản phẩm.
+                        - Luôn hiển thị link "Xem chi tiết" với từng sản phẩm nếu có.
                         - KHÔNG sử dụng cú pháp Markdown như [Xem chi tiết](URL).
                         - Có thể thêm lời chào, nhận xét thân thiện, nhưng KHÔNG được xóa link hoặc định dạng HTML.
-                        
+                        - Tuyệt đối KHÔNG bịa ra thông tin hoặc chương trình khuyến mãi liên quan đến việc buôn bán.                                                                                             
                     Câu hỏi khách hàng: %s
                     
                      Hãy trả lời thân thiện, tự nhiên bằng tiếng Việt, sử dụng nguyên HTML đã cho.
@@ -191,3 +201,4 @@ public class ChatbotController {
     }
 
 }
+*/

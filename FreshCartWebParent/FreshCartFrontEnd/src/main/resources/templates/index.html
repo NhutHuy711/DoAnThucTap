@@ -15,34 +15,36 @@
             <div class="container">
                 <div class="hero-slider">
                     <!-- Slider item 1 -->
-                    <div th:style="'background: url(' + @{/images/slider/slider-1.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
+                    <!-- Slider item 1 -->
+                    <div th:style="'background: url(' + @{/images/slider/phone-slider-1.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
                         <div class="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-14 px-8 text-xs-center">
-                            <span class="badge text-bg-warning">Grand Opening – Up to 50% Off</span>
-                            <h2 class="text-dark display-5 fw-bold mt-4">TechLap – Your Trusted Laptop Store</h2>
-                            <p class="lead">Redefining how you shop laptops online with fast delivery and unbeatable service.</p>
+                            <span class="badge text-bg-warning">Grand Opening – Up to 40% Off</span>
+                            <h2 class="text-dark display-5 fw-bold mt-4">TechPhone – Your Trusted Smartphone Store</h2>
+                            <p class="lead">Discover the latest smartphones with AI features, fast delivery, and unbeatable service.</p>
                             <a href="#!" class="btn btn-dark mt-3">Shop Now <i class="feather-icon icon-arrow-right ms-1"></i></a>
                         </div>
                     </div>
 
                     <!-- Slider item 2 -->
-                    <div th:style="'background: url(' + @{/images/slider/hero-img-slider-2.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
+                    <div th:style="'background: url(' + @{/images/slider/phone-slider-2.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
                         <div class="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-14 px-8 text-xs-center">
                             <span class="badge text-bg-danger">Hot Deals</span>
-                            <h2 class="text-dark display-5 fw-bold mt-4">Latest Laptops at Best Prices</h2>
-                            <p class="lead">Enjoy up to 50% off on your first purchase. Shop now for genuine and high-performance tech products.</p>
+                            <h2 class="text-dark display-5 fw-bold mt-4">Latest Phones at Best Prices</h2>
+                            <p class="lead">Enjoy exclusive discounts on top brands – iPhone, Samsung, Xiaomi, and more.</p>
                             <a href="#!" class="btn btn-danger mt-3">Shop Now <i class="feather-icon icon-arrow-right ms-1"></i></a>
                         </div>
                     </div>
 
                     <!-- Slider item 3 -->
-                    <div th:style="'background: url(' + @{/images/slider/slider-2.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
+                    <div th:style="'background: url(' + @{/images/slider/phone-slider-3.jpg} + ')no-repeat; background-size: cover; border-radius: .5rem;'">
                         <div class="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-14 px-8 text-xs-center">
                             <span class="badge text-bg-success">Genuine Products</span>
                             <h2 class="text-dark display-5 fw-bold mt-4">100% Authentic & Brand New</h2>
-                            <p class="lead">Start your tech journey with our certified laptops and accessories – guaranteed genuine.</p>
+                            <p class="lead">Buy smartphones and accessories with full warranty – guaranteed genuine.</p>
                             <a href="#!" class="btn btn-success mt-3">Explore Now <i class="feather-icon icon-arrow-right ms-1"></i></a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -148,30 +150,33 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/clock.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Superfast Laptop Delivery in 10 Minutes</h3>
-                        <p>Place your order now at TechLap and receive your laptop at home from the nearest store.</p>
+                        <h3 class="h5 mb-3">Lightning-Fast Phone Delivery</h3>
+                        <p>Order now at TechPhone and get your smartphone delivered to your door in record time.</p>
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/gift.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Best Laptop Deals & Exclusive Offers</h3>
-                        <p>Better prices than retail stores, plus exclusive cashback and promotions. Shop smart at TechLap.</p>
+                        <h3 class="h5 mb-3">Exclusive Phone Deals & Discounts</h3>
+                        <p>Find unbeatable prices on iPhone, Samsung, Xiaomi, and more – only at TechPhone.</p>
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/package.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Wide Selection of Products</h3>
-                        <p>Explore a wide range of laptops, accessories, and tech gadgets tailored for study, work, and entertainment.</p>
+                        <h3 class="h5 mb-3">Wide Selection of Smartphones</h3>
+                        <p>Explore the latest smartphones, accessories, and AI-powered gadgets tailored to your needs.</p>
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6"><img th:src="@{/images/icons/refresh-cw.svg}" alt=""></div>
-                        <h3 class="h5 mb-3">Hassle-Free Returns</h3>
+                        <h3 class="h5 mb-3">Easy Returns & Refunds</h3>
                         <p>
-                            Not satisfied with your laptop or accessory? Return it right at your doorstep and receive a quick refund – no questions asked.
+                            Not happy with your phone or accessory? Return it easily and get a quick refund – hassle-free.
                             <a href="#!">Return policy</a>.
                         </p>
                     </div>
@@ -180,10 +185,291 @@
         </div>
 </section>
 
-
 <div th:replace="navigation :: footer_menu"></div>
 
-<script type="text/javascript">
+    <!-- Nút mở chat -->
+    <div id="chatbot-toggle">💬</div>
+
+    <!-- Khung chat -->
+    <div id="chatbot-box">
+        <div class="chat-header">
+            🤖 TechLap Chatbot
+        </div>
+
+        <div id="chat-messages">
+            <div class="message bot">Xin chào! Tôi có thể giúp gì cho bạn?</div>
+        </div>
+
+        <div class="chat-footer">
+            <input id="chat-input" type="text" placeholder="Nhập tin nhắn..." />
+            <button id="chat-send">Gửi</button>
+        </div>
+    </div>
+
+
+    <script>
+        const toggle = document.getElementById("chatbot-toggle");
+        const chatBox = document.getElementById("chatbot-box");
+        const chatMessages = document.getElementById("chat-messages");
+        const chatInput = document.getElementById("chat-input");
+        const chatSend = document.getElementById("chat-send");
+
+        // Toggle mở/đóng chat
+        toggle.addEventListener("click", () => {
+            chatBox.style.display = (chatBox.style.display === "none") ? "flex" : "none";
+        });
+
+        // Gửi tin nhắn
+        chatSend.addEventListener("click", sendMessage);
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        function sendPayload(payload) {
+            fetch("/FreshCart/chat/message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrfHeaderName]: csrfValue
+                },
+                body: JSON.stringify({ message: payload })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // Có thể server trả về [{text:..., buttons:...}]
+                    let msgs = data.messages || data;
+                    if (Array.isArray(msgs) && msgs.length > 0) {
+                        msgs.forEach(msg => {
+                            if (typeof msg === "object") {
+                                const text = msg.text || "";
+                                // ✅ Check buttons từ object
+                                const buttons = msg.buttons || [];
+                                appendMessage("Bot", text, buttons);
+                            } else {
+                                appendMessage("Bot", msg);
+                            }
+                        });
+                    }
+                })
+                .catch(err => {
+                    appendMessage("Bot", "⚠️ Lỗi kết nối với chatbot.");
+                    console.error(err);
+                });
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            appendMessage("Bạn", message);
+            chatInput.value = "";
+
+            fetch("/FreshCart/chat/message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrfHeaderName]: csrfValue
+                },
+                body: JSON.stringify({ message })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    let msgs = data.messages || data;
+
+                    if (Array.isArray(msgs) && msgs.length > 0) {
+                        msgs.forEach(msg => {
+                            if (typeof msg === "object") {
+                                const text = msg.text || "";
+                                const buttons = msg.buttons || [];
+                                appendMessage("Bot", text, buttons);
+                            } else {
+                                appendMessage("Bot", msg);
+                            }
+                        });
+                    } else {
+                        appendMessage("Bot", "Xin lỗi, tôi không hiểu câu hỏi của bạn.");
+                    }
+
+                    console.log("Detected intent:", data.intent, "Confidence:", data.confidence);
+                })
+                .catch(err => {
+                    appendMessage("Bot", "⚠️ Lỗi kết nối với chatbot.");
+                    console.error(err);
+                });
+        }
+
+        function appendMessage(sender, text, buttons = []) {
+            const div = document.createElement("div");
+            div.classList.add("message", sender === "Bạn" ? "user" : "bot");
+            div.innerHTML = text;
+
+            // ✅ Parse buttons nếu là string JSON
+            try {
+                if (typeof buttons === "string") {
+                    buttons = JSON.parse(buttons);
+                }
+            } catch (e) {
+                console.warn("⚠️ Không parse được buttons:", e);
+                buttons = [];
+            }
+
+            if (buttons && Array.isArray(buttons) && buttons.length > 0) {
+                const btnContainer = document.createElement("div");
+                btnContainer.className = "button-container";
+                btnContainer.style.marginTop = "8px";
+
+                buttons.forEach(b => {
+                    const btn = document.createElement("button");
+                    btn.innerText = b.title;
+                    btn.className = "chat-button";
+                    btn.onclick = () => {
+                        appendMessage("Bạn", b.title);
+                        sendPayload(b.payload);
+                    };
+                    btnContainer.appendChild(btn);
+                });
+
+                div.appendChild(btnContainer);
+            }
+
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+
+    </script>
+
+    <style>
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Nút mở chat */
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #0aad0a, #008000);
+            color: white;
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.2s ease;
+        }
+        #chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Khung chat */
+        #chatbot-box {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 370px;
+            height: 500px;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            z-index: 1000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header */
+        #chatbot-box .chat-header {
+            background: linear-gradient(135deg, #0aad0a, #008000);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            position: relative;
+        }
+
+        /* Nội dung chat */
+        #chat-messages {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+        .message {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+            clear: both;
+            line-height: 1.4;
+        }
+        .message.user {
+            background: #0aad0a;
+            color: white;
+            float: right;
+            border-bottom-right-radius: 0;
+        }
+        .message.bot {
+            background: #e9ecef;
+            float: left;
+            border-bottom-left-radius: 0;
+        }
+
+        /* Footer */
+        #chatbot-box .chat-footer {
+            padding: 8px;
+            border-top: 1px solid #ddd;
+            background: #fff;
+            display: flex;
+        }
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+        #chat-send {
+            margin-left: 8px;
+            padding: 10px 14px;
+            background: #0aad0a;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        #chat-send:hover {
+            background: #008000;
+        }
+        .chat-button {
+            margin: 4px 4px 0 0;
+            padding: 6px 12px;
+            background: #0aad0a;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .chat-button:hover {
+            background: #008000;
+        }
+
+    </style>
+
+
+
+    <script type="text/javascript">
     contextPath = "[[@{/}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
     var csrfValue = "[[${_csrf.token}]]";
@@ -196,64 +482,6 @@
 <script type="text/javascript" th:src="@{/js/cart.js}"></script>
 <script type="text/javascript" th:src="@{/js/list_brand_categories.js}"></script>
 <!-- <script type="text/javascript" th:src="@{/js/theme-switcher.js}"></script> -->
-
-    <!-- Chatbot UI -->
-    <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <div id="chatbox" style="display: none; width: 300px; height: 400px; background: white; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column;">
-            <div style="background: #0d6efd; color: white; padding: 10px; text-align: center;">Gemini Chatbot</div>
-            <div id="chatlog" style="flex: 1; padding: 10px; overflow-y: auto; font-size: 14px;"></div>
-            <div style="display: flex; border-top: 1px solid #ccc;">
-                <input id="chat-input" type="text" placeholder="Nhập câu hỏi..." style="flex: 1; border: none; padding: 10px;" />
-                <button onclick="sendMessage()" style="border: none; background: #0d6efd; color: white; padding: 10px;">Gửi</button>
-            </div>
-        </div>
-        <button onclick="toggleChatbox()" style="background: #0d6efd; color: white; border: none; padding: 12px 16px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
-            💬
-        </button>
-    </div>
-
-    <script>
-        // Lấy context path từ Thymeleaf
-        const contextPath = "[[@{/}]]";  // Sẽ resolve thành "/FreshCart/"
-
-        function toggleChatbox() {
-            const box = document.getElementById('chatbox');
-            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const chatlog = document.getElementById('chatlog');
-            const message = input.value.trim();
-            if (message === "") return;
-
-            // Hiển thị câu hỏi người dùng
-            chatlog.innerHTML += `<div><b>Bạn:</b> ${message}</div>`;
-            input.value = "";
-
-            try {
-                const response = await fetch(contextPath + "chatbot/ask", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        [csrfHeaderName]: csrfValue
-                    },
-                    body: JSON.stringify(message)
-                });
-
-                const data = await response.json();
-
-                let answer = data.reply || "Không có phản hồi";
-
-                chatlog.innerHTML += `<div><b>Gemini:</b> ${answer}</div>`;
-                chatlog.scrollTop = chatlog.scrollHeight;
-            } catch (err) {
-                chatlog.innerHTML += `<div><b>Lỗi:</b> Không thể gửi câu hỏi (${err.message})</div>`;
-                console.error("Lỗi gửi câu hỏi:", err);
-            }
-        }
-
-    </script>
 
 
 

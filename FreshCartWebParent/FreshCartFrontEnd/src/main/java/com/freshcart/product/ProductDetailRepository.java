@@ -11,4 +11,9 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
 
     @Query("SELECT d FROM ProductDetail d WHERE d.product.id = ?1")
     List<ProductDetail> findByProductId(Integer productId);
+
+    @Query("SELECT pd FROM ProductDetail pd " +
+            "WHERE (?1 IS NULL OR pd.product.brand.id = ?1) " +
+            "AND (?2 IS NULL OR pd.product.price <= ?2)")
+    List<ProductDetail> filterProducts(Integer brand, Float budget);
 }

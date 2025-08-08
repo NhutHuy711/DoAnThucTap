@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<style>
-	navbar .dropdown-menu {
-		z-index: 2000 !important;
-	}
-
-	/* Nếu zoom-pane của Drift cao hơn, giảm nó xuống */
-	#zoom-pane,
-	.drift-zoom-pane {
-		z-index: 1200 !important;
-	}
-
-	/* Slick slider không được vượt qua menu */
-	.slick-slider {
-		z-index: 1000 !important;
-	}
-</style>
-
-
-
 
 <body>
 	<div th:fragment="header_menu">
@@ -222,8 +203,8 @@
 				<div class="row justify-content-between">
 					<!-- Brand Description - Left Side -->
 					<div class="col-lg-3">
-						<h2 class="h5 mb-3">TechLap</h2>
-						<p class="text-muted">From top-quality laptops to essential tech accessories, TechLap brings everything you need for work, study, and entertainment right to your fingertips.</p>
+						<h2 class="h5 mb-3">TechPhone</h2>
+						<p class="text-muted">From flagship smartphones to essential accessories, TechPhone brings you everything you need to stay connected, work smart, and enjoy entertainment on the go.</p>
 						<!-- Social Media Icons -->
 						<div class="d-flex gap-3 mt-4 mb-4">
 							<a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
@@ -240,12 +221,12 @@
 							<div class="col-md-3">
 								<h5 class="mb-4">Sales</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Weekly Deals</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Special Prices</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Weekly Phone Deals</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Exclusive Discounts</a></li>
 									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Back-to-School Offers</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Office Laptops</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Gaming Laptops</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Tech Accessories</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">iPhone Specials</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Samsung Galaxy Deals</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Phone Accessories</a></li>
 								</ul>
 							</div>
 
@@ -253,10 +234,10 @@
 							<div class="col-md-3">
 								<h5 class="mb-4">Company</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Blog and news</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">About us</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">FAQ page</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Contact us</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Blog & News</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">FAQ</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
 									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Careers</a></li>
 								</ul>
 							</div>
@@ -265,24 +246,24 @@
 							<div class="col-md-3">
 								<h5 class="mb-4">Account</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Your account</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping & policies</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & replacements</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order tracking</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery info</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Taxes & fees</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Your Account</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping & Policies</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & Replacements</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order Tracking</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery Info</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Taxes & Fees</a></li>
 								</ul>
 							</div>
 
 							<!-- Customer Service Column -->
 							<div class="col-md-3">
-								<h5 class="mb-4">Customer service</h5>
+								<h5 class="mb-4">Customer Service</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Payment methods</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Money back guarantee</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & replacements</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order tracking</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery info</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Payment Methods</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Money Back Guarantee</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & Replacements</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order Tracking</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery Info</a></li>
 									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping</a></li>
 								</ul>
 							</div>
@@ -317,7 +298,7 @@
 						</div>
 						<div class="col-lg-7 mt-4 mt-md-0">
 							<ul class="list-inline mb-0 text-lg-end text-center">
-								<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with TechLap</li>
+								<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with TechPhone</li>
 								<li class="list-inline-item ms-4">
 									<a href="#!"> <img th:src="@{/images/appbutton/appstore-btn.svg}" alt="" style="width: 140px;"></a>
 								</li>
@@ -445,6 +426,21 @@
 			</div>
 		</div>
 	</div>
-
+	<div th:fragment="chatbot_ui">
+		<div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+			<div id="chatbox" class="chatbox">
+				<div class="chatbox-header">
+					<span>Gemini Chatbot</span>
+					<button class="close-btn" onclick="toggleChatbox()">✖</button>
+				</div>
+				<div id="chatlog" class="chatbox-body"></div>
+				<div class="chatbox-footer">
+					<input id="chat-input" type="text" placeholder="Nhập câu hỏi..." />
+					<button onclick="sendMessage()">➤</button>
+				</div>
+			</div>
+			<button id="chat-toggle-btn" onclick="toggleChatbox()">💬</button>
+		</div>
+	</div>
 </body>
 </html>

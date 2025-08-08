@@ -1,5 +1,6 @@
 package com.freshcart.product;
 
+import com.freshcart.common.entity.product.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -69,4 +70,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer>,
     @Query("SELECT p FROM Product p WHERE p.enabled = true AND p.brand.enabled = true AND p.category.enabled = true")
     List<Product> findAllEnabled();
 
+    @Query("SELECT p FROM Product p " +
+            "WHERE (?1 IS NULL OR p.brand.id = ?1) " +
+            "AND (?2 IS NULL OR p.price <= ?2) " +
+            "AND p.inStock > 0")
+    List<Product> filterProducts(Integer brandId, Float maxPrice);
 }

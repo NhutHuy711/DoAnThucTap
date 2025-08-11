@@ -175,7 +175,7 @@ public class ProductService {
             dto.setLink("/p/" + p.getAlias() + "/");
             dto.setDescription(p.getShortDescription());
 
-            // ✅ Ghép các value trùng key thành 1 chuỗi phân tách bằng dấu phẩy
+            // Ghép các value trùng key thành 1 chuỗi phân tách bằng dấu phẩy
             Map<String, String> specs = p.getDetails()
                     .stream()
                     .collect(Collectors.toMap(

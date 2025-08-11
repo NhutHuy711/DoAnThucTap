@@ -41,7 +41,7 @@ public class ProductEmbeddingInitService {
                     java.util.Arrays.stream(vector).boxed().collect(Collectors.toList())
             );
             embeddingRepository.save(pe);
-            System.out.println("✅ Saved embedding for: " + product.getName());
+            System.out.println("Saved embedding for: " + product.getName());
         }
     }
 }

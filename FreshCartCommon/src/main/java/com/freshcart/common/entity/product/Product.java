@@ -7,15 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+import com.freshcart.common.entity.Promotion;
 import org.hibernate.annotations.Formula;
 
 
@@ -58,8 +52,8 @@ public class Product extends IdBasedEntity {
     @Column(nullable = false)
     private float price;
 
-    @Column(name = "discount_percent")
-    private float discountPercent;
+//    @Column(name = "discount_percent")
+//    private float discountPercent;
 
     @Column(nullable = false)
     private float length;
@@ -90,6 +84,9 @@ public class Product extends IdBasedEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ImportDetail> importDetails = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "products")
+    private Set<Promotion> promotions = new HashSet<>();
+
     private int reviewCount;
     private float averageRating;
 
@@ -98,8 +95,8 @@ public class Product extends IdBasedEntity {
     @Transient
     private boolean reviewedByCustomer;
 
-    @Formula("price * (1 - discount_percent/100)")
-    private float finalPrice;
+//    @Formula("price * (1 - discount_percent/100)")
+//    private float finalPrice;
 
     public Product(Integer id) {
         this.id = id;
@@ -323,13 +320,45 @@ public class Product extends IdBasedEntity {
         return name;
     }
 
+//    @Transient
+//    public float getDiscountPrice() {
+//        if (discountPercent > 0) {
+//            return price * ((100 - discountPercent) / 100);
+//        }
+//        return this.price;
+//    }
+
+    @Transient
+    public Promotion getActivePromotion() {
+        if (promotions == null || promotions.isEmpty()) return null;
+        java.time.LocalDateTime now = java.time.LocalDateTime.now();
+
+        return promotions.stream()
+                .filter(Promotion::isEnabled)
+                .filter(p -> (p.getStartAt() == null || !now.isBefore(p.getStartAt()))
+                        && (p.getEndAt()   == null || !now.isAfter(p.getEndAt())))
+                // nếu lỡ có nhiều, ưu tiên % lớn nhất
+                .max(java.util.Comparator.comparing(Promotion::getPercentOff))
+                .orElse(null);
+    }
+
+    // Giá sau giảm lấy theo getDiscountPercent()
     @Transient
     public float getDiscountPrice() {
-        if (discountPercent > 0) {
-            return price * ((100 - discountPercent) / 100);
-        }
-        return this.price;
+        float percent = getDiscountPercent();
+        return price * (1f - percent / 100f);
     }
+
+    @Formula("(" +
+            "SELECT COALESCE(MAX(pr.percent_off),0) " +
+            "FROM promotions pr " +
+            "JOIN promotion_products pp ON pp.promotion_id = pr.id " +
+            "WHERE pp.product_id = id " +
+            "  AND pr.enabled = 1 " +                // nếu enabled là BIT(1), so sánh = 1 ok
+            "  AND NOW() BETWEEN pr.start_at AND pr.end_at" +
+            ")")
+    private Float discountPercent;
+
 
     public int getReviewCount() {
         return reviewCount;
@@ -368,8 +397,12 @@ public class Product extends IdBasedEntity {
         this.reviewedByCustomer = reviewedByCustomer;
     }
 
-    public float getFinalPrice() {
-        return finalPrice;
-    }
+//    public float getFinalPrice() {
+//        return finalPrice;
+//    }
+
+    public Set<Promotion> getPromotions() { return promotions; }
+
+    public void setPromotions(Set<Promotion> promotions) { this.promotions = promotions; }
 
 }

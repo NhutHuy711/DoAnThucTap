@@ -123,7 +123,13 @@
                              data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
                             <i class="bi bi-pencil fs-5"></i>
                           </a>
-                          
+
+                          <a class="btn btn-light btn-icon-text"
+                             th:href="@{'/orders/print/' + ${order.id}}"
+                             target="_blank"
+                             data-bs-toggle="tooltip" data-bs-placement="top" title="Print Order">
+                            <i class="bi bi-printer fs-5"></i>
+                          </a>
                           <!--<a class="btn btn-light btn-icon-text link-delete"
                              th:href="@{'/orders/delete/' + ${order.id}}"
                              th:attr="data-entity-id=${order.id}"

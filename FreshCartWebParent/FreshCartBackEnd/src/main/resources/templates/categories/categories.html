@@ -36,7 +36,6 @@
                     <thead class="bg-light">
                       <tr>
                         <th>ID</th>
-                        <th>Category Image</th>
                         <th>Category Name</th>
                         <th>Alias</th>
                         <th>Status</th>
@@ -46,11 +45,6 @@
                     <tbody>
                       <tr th:each="cat : ${listCategories}">
                         <td>[[${cat.id}]]</td>
-                        <td>
-                          <div class="icon-shape icon-md">
-                            <img th:src="@{${cat.imagePath}}" class="img-fluid rounded-3" />
-                          </div>
-                        </td>
                         <td><a href="#" class="text-reset">[[${cat.name}]]</a></td>
                         <td class="text-muted">[[${cat.alias}]]</td>
                         <td>

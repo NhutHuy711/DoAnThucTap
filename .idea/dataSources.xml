@@ -14,7 +14,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="techlapdb@localhost" uuid="e510f7c9-59ee-4123-afe0-04310e79c010">
+    <data-source source="LOCAL" name="freshcartdb@localhost" uuid="e510f7c9-59ee-4123-afe0-04310e79c010">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
@@ -29,7 +29,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="techlapdb@localhost1" uuid="35a351b1-c351-4bfa-8d92-e825449dc2a9">
+    <data-source source="LOCAL" name="freshcartdb@localhost1" uuid="35a351b1-c351-4bfa-8d92-e825449dc2a9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

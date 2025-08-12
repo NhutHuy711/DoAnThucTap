@@ -95,8 +95,20 @@ public class Product extends IdBasedEntity {
     @Transient
     private boolean reviewedByCustomer;
 
-//    @Formula("price * (1 - discount_percent/100)")
-//    private float finalPrice;
+    @Formula("(" +
+            "price * (1 - (" +
+            "COALESCE((" +
+            "SELECT MAX(pr2.percent_off) " +
+            "FROM promotions pr2 " +
+            "JOIN promotion_products pp2 ON pp2.promotion_id = pr2.id " +
+            "WHERE pp2.product_id = id " +
+            "  AND pr2.enabled = 1 " +
+            "  AND NOW() BETWEEN pr2.start_at AND pr2.end_at" +
+            "), 0) / 100" +
+            "))" +
+            ")")
+    private Float finalPrice;
+
 
     public Product(Integer id) {
         this.id = id;
@@ -195,13 +207,9 @@ public class Product extends IdBasedEntity {
         this.price = price;
     }
 
-    public float getDiscountPercent() {
-        return discountPercent;
-    }
+    public float getDiscountPercent() { return discountPercent == null ? 0f : discountPercent; }
 
-    public void setDiscountPercent(float discountPercent) {
-        this.discountPercent = discountPercent;
-    }
+    public void setDiscountPercent(float ignored) {}
 
     public float getLength() {
         return length;
@@ -397,9 +405,9 @@ public class Product extends IdBasedEntity {
         this.reviewedByCustomer = reviewedByCustomer;
     }
 
-//    public float getFinalPrice() {
-//        return finalPrice;
-//    }
+    public float getFinalPrice() {
+        return finalPrice;
+    }
 
     public Set<Promotion> getPromotions() { return promotions; }
 

@@ -33,6 +33,16 @@ public class Category extends IdBasedEntity {
     @OrderBy("name asc")
     private Set<Category> children = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "brands_categories",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "brand_id")
+    )
+    private Set<Brand> brands = new HashSet<>();
+
+
+
     public Category() {
     }
 
@@ -140,6 +150,10 @@ public class Category extends IdBasedEntity {
     public void setChildren(Set<Category> children) {
         this.children = children;
     }
+
+    public Set<Brand> getBrands() { return brands; }
+
+    public void setBrands(Set<Brand> brands) { this.brands = brands; }
 
     @Transient
     public String getImagePath() {

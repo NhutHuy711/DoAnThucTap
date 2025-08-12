@@ -86,7 +86,7 @@
                     </button>
                     <div class="navbar-brand ms-3">
                         <a th:href="@{/}" class="text-decoration-none">
-                            <img th:src="@{/images/FreshcartBig.png}" alt="FreshCart" class="d-inline-block align-text-top" style="width: 150px" />
+                            <img th:src="@{/images/TechPhoneBig.png}" alt="FreshCart" class="d-inline-block align-text-top" style="width: 150px" />
                         </a>
                     </div>
                 </div>
@@ -226,6 +226,36 @@
                                         <li class="nav-item">
                                             <a class="nav-link" th:href="@{/products}"
                                                th:classappend="${moduleURL == '/products' ? 'active' : ''}">Products List</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </th:block>
+
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor')">
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   th:classappend="${moduleURL != null && (moduleURL == '/promotions' || moduleURL == '/promotions/new') ? 'show' : 'collapsed'}"
+                                   href="#"
+                                   data-bs-toggle="collapse"
+                                   data-bs-target="#navPromotions">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-icon"><i class="bi bi-percent"></i></span>
+                                        <span class="nav-link-text">Promotions</span>
+                                    </div>
+                                </a>
+                                <div id="navPromotions"
+                                     class="collapse"
+                                     th:classappend="${moduleURL != null && (moduleURL == '/promotions' || moduleURL == '/promotions/new') ? 'show' : ''}"
+                                     data-bs-parent="#sideNavbar">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                                            <a class="nav-link" th:href="@{/promotions/new}"
+                                               th:classappend="${moduleURL == '/promotions/new' ? 'active' : ''}">Add Promotion</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/promotions}"
+                                               th:classappend="${moduleURL == '/promotions' ? 'active' : ''}">promotions List</a>
                                         </li>
                                     </ul>
                                 </div>

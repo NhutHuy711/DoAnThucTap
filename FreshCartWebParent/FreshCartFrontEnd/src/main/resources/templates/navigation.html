@@ -29,7 +29,7 @@
 						   </span>
 						   English
 						</a>
- 
+
 						<ul class="dropdown-menu">
 						   <li>
 							  <a class="dropdown-item" href="javascript:void(0)">
@@ -104,8 +104,8 @@
 									   placeholder="Search for products" required />
 								<span class="input-group-append">
 									<button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="submit">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
-											 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+											 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 											 class="feather feather-search">
 											<circle cx="11" cy="11" r="8"></circle>
 											<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -126,8 +126,8 @@
 							<div class="list-inline-item me-4">
 								<th:block sec:authorize="!isAuthenticated()">
 									<a th:href="@{/login}" class="text-muted">
-										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-											 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+											 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 											 class="feather feather-user">
 											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
 											<circle cx="12" cy="7" r="4"></circle>
@@ -138,10 +138,10 @@
 									<div class="nav-item dropdown">
 										<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 											<div class="avatar-circle-sm">
-												<span class="avatar-initials" 
+												<span class="avatar-initials"
 													  th:with="fullName=${#authentication.principal.fullName}"
-													  th:text="${#strings.substring(fullName,0,1) + 
-															   (#strings.length(fullName) > fullName.indexOf(' ') + 1 ? 
+													  th:text="${#strings.substring(fullName,0,1) +
+															   (#strings.length(fullName) > fullName.indexOf(' ') + 1 ?
 															   #strings.substring(fullName, fullName.indexOf(' ') + 1, fullName.indexOf(' ') + 2) : '')}">
 												</span>
 											</div>
@@ -161,14 +161,14 @@
 							<!-- Shopping Cart -->
 							<div class="list-inline-item me-4">
 								<a class="text-muted position-relative" th:href="@{/cart}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-										 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+										 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 										 class="feather feather-shopping-bag">
 										<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
 										<line x1="3" y1="6" x2="21" y2="6"></line>
 										<path d="M16 10a4 4 0 0 1-8 0"></path>
 									</svg>
-									<span class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
+									<span class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
 										  th:text="${session.totalCartItems != null and session.totalCartItems > 0 ? session.totalCartItems : ''}"
 										  th:style="${session.totalCartItems == null or session.totalCartItems == 0 ? 'display: none;' : ''}">
 									</span>
@@ -178,8 +178,8 @@
 							<!-- Theme switcher -->
 							<div class="list-inline-item">
 								<a href="#" class="text-muted" id="themeSwitcher">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-										 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+										 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 										 class="feather feather-moon">
 										<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
 									</svg>
@@ -203,8 +203,8 @@
 				<div class="row justify-content-between">
 					<!-- Brand Description - Left Side -->
 					<div class="col-lg-3">
-						<h2 class="h5 mb-3">TechLap</h2>
-						<p class="text-muted">From top-quality laptops to essential tech accessories, TechLap brings everything you need for work, study, and entertainment right to your fingertips.</p>
+						<h2 class="h5 mb-3">TechPhone</h2>
+						<p class="text-muted">From flagship smartphones to essential accessories, TechPhone brings you everything you need to stay connected, work smart, and enjoy entertainment on the go.</p>
 						<!-- Social Media Icons -->
 						<div class="d-flex gap-3 mt-4 mb-4">
 							<a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
@@ -221,12 +221,12 @@
 							<div class="col-md-3">
 								<h5 class="mb-4">Sales</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Weekly Deals</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Special Prices</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Weekly Phone Deals</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Exclusive Discounts</a></li>
 									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Back-to-School Offers</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Office Laptops</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Gaming Laptops</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Tech Accessories</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">iPhone Specials</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Samsung Galaxy Deals</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Phone Accessories</a></li>
 								</ul>
 							</div>
 
@@ -234,10 +234,10 @@
 							<div class="col-md-3">
 								<h5 class="mb-4">Company</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Blog and news</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">About us</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">FAQ page</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Contact us</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Blog & News</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">FAQ</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
 									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Careers</a></li>
 								</ul>
 							</div>
@@ -246,24 +246,24 @@
 							<div class="col-md-3">
 								<h5 class="mb-4">Account</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Your account</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping & policies</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & replacements</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order tracking</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery info</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Taxes & fees</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Your Account</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping & Policies</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & Replacements</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order Tracking</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery Info</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Taxes & Fees</a></li>
 								</ul>
 							</div>
 
 							<!-- Customer Service Column -->
 							<div class="col-md-3">
-								<h5 class="mb-4">Customer service</h5>
+								<h5 class="mb-4">Customer Service</h5>
 								<ul class="list-unstyled">
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Payment methods</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Money back guarantee</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & replacements</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order tracking</a></li>
-									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery info</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Payment Methods</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Money Back Guarantee</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Refunds & Replacements</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Order Tracking</a></li>
+									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Delivery Info</a></li>
 									<li class="mb-3"><a href="#" class="text-muted text-decoration-none">Shipping</a></li>
 								</ul>
 							</div>
@@ -298,7 +298,7 @@
 						</div>
 						<div class="col-lg-7 mt-4 mt-md-0">
 							<ul class="list-inline mb-0 text-lg-end text-center">
-								<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with TechLap</li>
+								<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with TechPhone</li>
 								<li class="list-inline-item ms-4">
 									<a href="#!"> <img th:src="@{/images/appbutton/appstore-btn.svg}" alt="" style="width: 140px;"></a>
 								</li>
@@ -347,9 +347,7 @@
 	<div th:fragment="category_nav" class="navbar navbar-expand-lg navbar-light navbar-default p-0 p-sm-0 navbar-offcanvas-color">
 		<div class="container">
 			<!-- Toggler button for mobile -->
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarNav" aria-controls="navbarNav"
-					aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
@@ -357,60 +355,44 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav align-items-center">
 					<!-- All Categories Dropdown -->
-					<li class="nav-item dropdown mega-menu me-6 d-none d-lg-block">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-								 class="bi bi-text-left me-2" viewBox="0 0 16 16">
-								<path fill-rule="evenodd"
-									  d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z">
-								</path>
-							</svg>
-							All Categories
+					<li class="nav-item dropdown mega-menu me-6 d-none d-lg-block position-relative" style="z-index:2100;">
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static">
+							All Brands
 						</a>
+						<div class="dropdown-menu p-3" style="min-width:500px;">
+							<div class="row">
+								<!-- Cột Brand -->
+								<div class="col-4 border-end">
+									<ul class="list-unstyled mb-0" id="brandList">
+										<th:block th:each="entry, iterStat : ${brandCategoriesMap}">
+											<li class="brand-item py-2 px-2">
+												<a class="dropdown-item"
+												   th:attr="data-index=${iterStat.index}"
+												   style="cursor:pointer;"
+												   th:href="@{'/brand/' + ${entry.key.name}}"
+												   th:text="${entry.key.name}"/>
+											</li>
+										</th:block>
+									</ul>
+								</div>
 
-						<div class="dropdown-menu">
-							<div class="main-categories">
-								<th:block th:each="cat : ${listCategories}">
-									<!-- Main category wrapper -->
-									<div class="category-wrapper">
-										<!-- Main category item -->
-										<a class="dropdown-item" href="#"
-										   th:href="@{'/category/' + ${cat.alias}}"
-										   th:classappend="${cat.name == selectedMainCategory ? 'active' : ''}">
-											<span th:text="${cat.name}"></span>
-											<i th:if="${not #lists.isEmpty(cat.children)}"
-											   class="bi bi-chevron-right"></i>
-										</a>
-										
-										<!-- Sub categories -->
-										<div class="subcategory-group" th:if="${not #lists.isEmpty(cat.children)}">
-											<th:block th:each="subCat : ${cat.children}">
-												<!-- Sub category wrapper -->
-												<div class="subcategory-wrapper">
-													<!-- Sub category item -->
-													<a class="dropdown-item" href="#"
-													   th:href="@{'/category/' + ${subCat.alias}}"
-													   th:classappend="${subCat.name == selectedSubCategory ? 'active' : ''}">
-														<span th:text="${subCat.name}"></span>
-														<i th:if="${not #lists.isEmpty(subCat.children)}"
-														   class="bi bi-chevron-right"></i>
+								<!-- Cột Category -->
+								<div class="col-8">
+									<th:block th:each="entry, iterStat : ${brandCategoriesMap}">
+										<ul class="list-unstyled category-list"
+											th:attr="data-index=${iterStat.index}"
+											style="display:none;">
+											<th:block th:each="category : ${entry.value}">
+												<li>
+													<a class="dropdown-item"
+													   th:href="@{'/category/' + ${category.alias}}"
+													   th:text="${category.name}">
 													</a>
-													
-													<!-- Child categories -->
-													<div class="childcategory-group"
-														 th:if="${not #lists.isEmpty(subCat.children)}">
-														<th:block th:each="childCat : ${subCat.children}">
-															<a class="dropdown-item" href="#"
-															   th:href="@{'/category/' + ${childCat.alias}}"
-															   th:text="${childCat.name}">
-															</a>
-														</th:block>
-													</div>
-												</div>
+												</li>
 											</th:block>
-										</div>
-									</div>
-								</th:block>
+										</ul>
+									</th:block>
+								</div>
 							</div>
 						</div>
 					</li>
@@ -418,8 +400,7 @@
 					<!-- Other nav items -->
 					<li class="nav-item">
 						<a class="nav-link" th:href="@{/promotions}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-								 class="bi bi-percent me-2" viewBox="0 0 16 16">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-percent me-2" viewBox="0 0 16 16">
 								<path d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
 							</svg>
 							Promotion
@@ -427,8 +408,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" th:href="@{/best-sellers}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-								 class="bi bi-star me-2" viewBox="0 0 16 16">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star me-2" viewBox="0 0 16 16">
 								<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
 							</svg>
 							Best Sellers
@@ -436,8 +416,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" th:href="@{/new-products}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-								 class="bi bi-box-seam me-2" viewBox="0 0 16 16">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam me-2" viewBox="0 0 16 16">
 								<path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
 							</svg>
 							New Arrival
@@ -447,6 +426,21 @@
 			</div>
 		</div>
 	</div>
+	<div th:fragment="chatbot_ui">
+		<div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+			<div id="chatbox" class="chatbox">
+				<div class="chatbox-header">
+					<span>Gemini Chatbot</span>
+					<button class="close-btn" onclick="toggleChatbox()">✖</button>
+				</div>
+				<div id="chatlog" class="chatbox-body"></div>
+				<div class="chatbox-footer">
+					<input id="chat-input" type="text" placeholder="Nhập câu hỏi..." />
+					<button onclick="sendMessage()">➤</button>
+				</div>
+			</div>
+			<button id="chat-toggle-btn" onclick="toggleChatbox()">💬</button>
+		</div>
+	</div>
 </body>
-
 </html>

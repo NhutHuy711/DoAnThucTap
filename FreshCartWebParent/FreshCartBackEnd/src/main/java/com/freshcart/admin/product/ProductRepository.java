@@ -8,6 +8,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.freshcart.common.entity.product.Product;
 
+import java.util.List;
+
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
     public Product findByName(String name);
@@ -48,4 +50,9 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
             + "WHERE p.id = ?1")
     @Modifying
     public void updateReviewCountAndAverageRating(Integer productId);
+
+    public List<Product> findByIdIn(List<Integer> ids);
+
+    Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
 }

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+<div th:replace="navigation :: top_nav"></div>
+<div class="main-wrapper">
+    <div th:replace="navigation :: menu"></div>
+
+    <main class="main-content-wrapper bg-white">
+        <div class="container">
+            <!-- header row -->
+            <div class="row mb-8">
+                <div class="col-md-12">
+                    <div class="d-md-flex justify-content-between align-items-center">
+                        <div>
+                            <h2>[[${pageTitle}]]</h2>
+                            <div class="d-flex">
+                                <!-- FIX breadcrumb -->
+                                <a th:href="@{/promotions}" class="text-inherit">Promotions</a>
+                                <span class="mx-2">/</span>
+                                <span class="text-muted">[[${pageTitle}]]</span>
+                            </div>
+                        </div>
+                        <div>
+                            <a th:href="@{/promotions}" class="btn btn-light">Back to Promotions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form th:action="@{/promotions/save}" th:object="${promotion}" method="post" class="needs-validation">
+                <input type="hidden" th:field="*{id}" />
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <div class="card mb-6 shadow border-0">
+                            <div class="card-body p-6">
+                                <h4 class="mb-4 h5">Promotion Information</h4>
+                                <div class="row">
+                                    <!-- Name -->
+                                    <div class="mb-3 col-lg-6">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" th:field="*{name}" maxlength="128" required />
+                                    </div>
+
+                                    <!-- Percent Off -->
+                                    <div class="mb-3 col-lg-6">
+                                        <label class="form-label">Percent (%)</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" th:field="*{percentOff}"
+                                                   min="0" max="100" step="0.01" required />
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Start At -->
+                                    <div class="mb-3 col-lg-6">
+                                        <label class="form-label">Start At</label>
+                                        <input type="datetime-local" class="form-control" th:field="*{startAt}" required />
+                                    </div>
+
+                                    <!-- End At -->
+                                    <div class="mb-3 col-lg-6">
+                                        <label class="form-label">End At</label>
+                                        <input type="datetime-local" class="form-control" th:field="*{endAt}" required />
+                                        <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('endAt')}" th:errors="*{endAt}"></div>
+                                    </div>
+
+                                    <!-- Enabled -->
+                                    <div class="mb-3 col-lg-6">
+                                        <label class="form-label d-block">Status</label>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" th:field="*{enabled}"/>
+                                            <label class="form-check-label">Enable this promotion</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- APPLY TO PRODUCTS -->
+                                    <h4 class="mb-4 h5 mt-4">Apply To Products</h4>
+                                    <div class="row">
+                                        <div class="mb-3 col-lg-12">
+                                            <label for="productIds" class="form-label">Products</label>
+                                            <select id="productIds" name="productIds" class="form-select" multiple style="width:100%">
+                                                <option th:each="p : ${selectedProducts}" th:value="${p.id}"
+                                                        th:text="${p.id + ' - ' + p.name}" selected="selected"></option>
+                                            </select>
+                                            <div class="form-text">Enter to search by ID or name.</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Actions -->
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <a th:href="@{/promotions}" class="btn btn-secondary ms-2" id="buttonCancel">Cancel</a>
+                                    </div>
+                                </div> <!-- row -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<div th:replace="modal_fragments :: modal_dialog"></div>
+<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: common-js"></div>
+
+<!-- Select2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- Toast (đọc từ model/flash) -->
+<script th:inline="javascript">
+    const toastType    = /*[[${toastType}]]*/ null;
+    const toastMessage = /*[[${toastMessage}]]*/ null;
+    $(function () {
+        if (toastMessage) {
+            if (toastType === 'error')      showErrorMessage(toastMessage);
+            else if (toastType === 'warning') showWarningMessage(toastMessage);
+            else                             showSuccessMessage(toastMessage);
+        }
+    });
+</script>
+
+<!-- Init Select2 (THYMELEAF inline để render URL đúng) -->
+<script th:inline="javascript">
+    $(function () {
+        const searchUrl = /*[[@{/promotions/products/search}]]*/ '/promotions/products/search';
+        $('#productIds').select2({
+            placeholder: 'Search by ID or name…',
+            width: '100%',
+            multiple: true,
+            minimumInputLength: 1,
+            ajax: {
+                url: searchUrl,
+                delay: 250,
+                data: params => ({ term: params.term, page: params.page || 1 }),
+                processResults: (data, params) => ({
+                    results: data,
+                    pagination: { more: data.length === 20 }
+                })
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript"> moduleURL = "[[@{/promotions}]]"; </script>
+<script th:src="@{/js/common_form.js}"></script>
+
+<!-- JS Validate (không dùng @Valid) -->
+<script th:inline="javascript">
+    $(function () {
+        const $form     = $('form.needs-validation');
+        const $percent  = $('#percentOff');
+        const $start    = $('#startAt');
+        const $end      = $('#endAt');
+        const $products = $('#productIds');
+        const $productsWrap = $products.next('.select2'); // wrapper của select2
+
+        function setInvalid($el, msg) {
+            $el.addClass('is-invalid');
+            $el.siblings('.invalid-feedback').remove();
+            $el.after('<div class="invalid-feedback d-block">' + msg + '</div>');
+        }
+        function clearInvalid($el) {
+            $el.removeClass('is-invalid');
+            $el.siblings('.invalid-feedback').remove();
+        }
+        // dành cho Select2
+        function setInvalidSelect2(msg){
+            $productsWrap.addClass('is-invalid');
+            $productsWrap.next('.invalid-feedback').remove();
+            $productsWrap.after('<div class="invalid-feedback d-block">'+msg+'</div>');
+        }
+        function clearInvalidSelect2(){
+            $productsWrap.removeClass('is-invalid');
+            $productsWrap.next('.invalid-feedback').remove();
+        }
+
+        function parseDate(s) { return s ? new Date(s) : null; }
+
+        // Clear lỗi khi người dùng sửa
+        $percent.on('input', () => clearInvalid($percent));
+        $start.on('change input', () => clearInvalid($start));
+        $end.on('change input', () => clearInvalid($end));
+        $products.on('change', () => clearInvalidSelect2());
+
+        $form.on('submit', function (e) {
+            let ok = true;
+
+            // 1) Percent ( > 0 và <= 100 )
+            const percent = parseFloat($percent.val());
+            if (isNaN(percent) || percent <= 0 || percent > 100) {
+                setInvalid($percent, 'Percentage must be greater than 0 and less than or equal to 100.');
+                ok = false;
+            }
+
+            // 2) Date order
+            const start = parseDate($start.val());
+            const end   = parseDate($end.val());
+            if (start && end && end <= start) {
+                setInvalid($end, 'End time must be after start time.');
+                ok = false;
+            }
+
+            // 3) Phải chọn ít nhất 1 sản phẩm
+            const chosen = $products.val() || [];
+            if (chosen.length === 0) {
+                setInvalidSelect2('Please select at least 1 product.');
+                showWarningMessage('Please select at least 1 product.');
+                ok = false;
+            }
+
+            if (!ok) {
+                e.preventDefault();
+                showErrorMessage('Please review the highlighted fields.');
+            }
+        });
+    });
+</script>
+</body>
+</html>

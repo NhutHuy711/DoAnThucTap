@@ -3,9 +3,11 @@ package com.freshcart.product;
 import com.freshcart.common.entity.Brand;
 import com.freshcart.common.entity.Brand_;
 import com.freshcart.common.entity.product.Product;
+import com.freshcart.common.entity.product.ProductDetail;
 import com.freshcart.common.entity.product.Product_;
 import com.freshcart.common.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +16,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Join;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -24,6 +29,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository repo;
+
+    @Autowired
+    private ProductDetailRepository productDetailRepository;
 
     public Page<Product> listByCategory(int pageNum, Integer categoryId,
                                         List<String> brandNames, Integer rating,
@@ -106,6 +114,16 @@ public class ProductService {
         return repo.findAll(spec, pageable);
     }
 
+    public Page<Product> listByBrand(Specification<Product> spec, Pageable pageable, Integer brandId) {
+        // Nếu đang sắp xếp theo bán chạy
+        if (pageable.getSort().equals(Sort.by("id"))) {
+            return repo.findAllOrderByMostSoldByBrand(brandId, pageable);
+        }
+
+        // Ngược lại thì lọc bằng Specification
+        return repo.findAll(spec, pageable);
+    }
+
     public List<Product> listNewProducts() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> page = repo.findNewProducts(pageable);
@@ -127,8 +145,49 @@ public class ProductService {
          return page.getContent();
      }
 
-    public Product findByProductName(String name) {
-        return repo.findTopByNameContainingIgnoreCase(name);
+    public List<Product> findAllEnabled() {
+        return repo.findAllEnabled();
     }
 
+    public List<ProductDetail> getProductDetails(Integer productId) {
+        return productDetailRepository.findByProductId(productId);
+    }
+
+    @Cacheable(value = "productPrices", key = "#name.toLowerCase()", unless = "#result == null")
+    public Float getPrice(String name) {
+        Product product = repo.findTopByNameContainingIgnoreCase(name);
+        if (product != null) {
+            return product.getPrice();
+        }
+        return null;
+    }
+
+    public List<ProductDTO> getFilteredProducts(Integer brandId, Float maxPrice) {
+        List<Product> products = repo.filterProducts(brandId, maxPrice);
+        List<ProductDTO> result = new ArrayList<>();
+
+        for (Product p : products) {
+            ProductDTO dto = new ProductDTO();
+            dto.setId(p.getId());
+            dto.setName(p.getName());
+            dto.setPrice(p.getPrice());
+            dto.setAlias(p.getAlias());
+            dto.setLink("/p/" + p.getAlias() + "/");
+            dto.setDescription(p.getShortDescription());
+
+            // Ghép các value trùng key thành 1 chuỗi phân tách bằng dấu phẩy
+            Map<String, String> specs = p.getDetails()
+                    .stream()
+                    .collect(Collectors.toMap(
+                            ProductDetail::getName,
+                            ProductDetail::getValue,
+                            (v1, v2) -> v1 + ", " + v2   // nếu trùng key thì nối lại
+                    ));
+
+            dto.setSpecs(specs);
+
+            result.add(dto);
+        }
+        return result;
+    }
 }

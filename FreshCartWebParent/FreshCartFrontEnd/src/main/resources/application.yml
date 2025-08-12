@@ -16,12 +16,9 @@ spring:
       servlet:
         content-type: text/html
   datasource:
-    url: jdbc:mysql://localhost:3306/freshcartdb
+    url: jdbc:mysql://localhost:3306/techlapdb
     username: root
     password: 123456
-    #hikari:
-    #minimum-idle: 1
-    #maximum-pool-size: 2
   jpa:
     hibernate:
       ddl-auto: none

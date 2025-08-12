@@ -1,5 +1,6 @@
 package com.freshcart.product;
 
+import com.freshcart.common.entity.product.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.freshcart.common.entity.product.Product;
+
+import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>, 
                                          JpaSpecificationExecutor<Product> {
@@ -60,4 +63,16 @@ public interface ProductRepository extends JpaRepository<Product, Integer>,
            "ORDER BY COALESCE(SUM(CASE WHEN o.status = 'DELIVERED' THEN od.quantity ELSE 0 END), 0) DESC")
     Page<Product> findAllOrderByMostSold(Integer categoryId, String categoryIDMatch, Pageable pageable);
 
+    @Query("SELECT p FROM Product p JOIN OrderDetail od ON od.product.id = p.id " +
+            "WHERE p.brand.id = ?1 GROUP BY p.id ORDER BY SUM(od.quantity) DESC")
+    Page<Product> findAllOrderByMostSoldByBrand(Integer brandId, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.enabled = true AND p.brand.enabled = true AND p.category.enabled = true")
+    List<Product> findAllEnabled();
+
+    @Query("SELECT p FROM Product p " +
+            "WHERE (?1 IS NULL OR p.brand.id = ?1) " +
+            "AND (?2 IS NULL OR p.price <= ?2) " +
+            "AND p.inStock > 0")
+    List<Product> filterProducts(Integer brandId, Float maxPrice);
 }

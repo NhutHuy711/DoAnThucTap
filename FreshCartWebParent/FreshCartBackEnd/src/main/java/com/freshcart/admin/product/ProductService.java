@@ -1,5 +1,6 @@
 package com.freshcart.admin.product;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -82,7 +83,7 @@ public class ProductService {
         Product productInDB = repo.findById(productInForm.getId()).get();
         productInDB.setCost(productInForm.getCost());
         productInDB.setPrice(productInForm.getPrice());
-        productInDB.setDiscountPercent(productInForm.getDiscountPercent());
+        //productInDB.setDiscountPercent(productInForm.getDiscountPercent());
 
         repo.save(productInDB);
     }
@@ -123,4 +124,16 @@ public class ProductService {
             throw new ProductNotFoundException("Could not find any product with ID " + id);
         }
     }
+
+    public List<Product> findAll() {
+        List<Product> list = new ArrayList<>();
+        repo.findAll().forEach(list::add); // convert Iterable -> List
+        return list;
+    }
+
+    public List<Product> findByIds(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) return java.util.Collections.emptyList();
+        return repo.findByIdIn(ids);
+    }
+
 }

@@ -129,7 +129,7 @@ $(document).on("click", ".download-chart", function() {
 $(document).on("click", ".export-data", function () {
 	var reportType = $(this).data("reporttype"); // Loại báo cáo
 	if (reportType === "_product") {
-		exportTableDataAsCSV();
+		exportTableDataAsExcel();
 	}
 });
 
@@ -176,4 +176,48 @@ function exportTableDataAsCSV() {
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
+}
+
+function exportTableDataAsExcel() {
+	const ws_data = [];
+
+	// Header row
+	ws_data.push(["Product", "Quantity", "Revenue", "Profit", "Shipping Cost"]);
+
+	// Data rows
+	const numRows = data.getNumberOfRows();
+	for (let i = 0; i < numRows; i++) {
+		ws_data.push([
+			data.getValue(i, 0),
+			data.getValue(i, 1),
+			data.getValue(i, 2),
+			data.getValue(i, 3),
+			data.getValue(i, 4)
+		]);
+	}
+
+	// Create worksheet and workbook
+	const ws = XLSX.utils.aoa_to_sheet(ws_data);
+	const wb = XLSX.utils.book_new();
+	XLSX.utils.book_append_sheet(wb, ws, "Report");
+
+	// Add some basic formatting (bold header)
+	const range = XLSX.utils.decode_range(ws['!ref']);
+	for (let C = range.s.c; C <= range.e.c; ++C) {
+		const cell_address = XLSX.utils.encode_cell({c: C, r: 0});
+		if (!ws[cell_address]) continue;
+		ws[cell_address].s = {
+			font: { bold: true },
+			fill: { fgColor: { rgb: "FFFFCC" } },
+			border: {
+				top: {style: "thin", color: {auto: 1}},
+				bottom: {style: "thin", color: {auto: 1}},
+				left: {style: "thin", color: {auto: 1}},
+				right: {style: "thin", color: {auto: 1}}
+			}
+		};
+	}
+
+	// Export file
+	XLSX.writeFile(wb, "sales_report_product.xlsx");
 }

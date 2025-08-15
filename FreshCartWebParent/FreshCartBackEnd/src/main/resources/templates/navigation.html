@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
-
 <body>
     <!-- Top Navigation Bar Fragment -->
     <div th:fragment="top_nav">
@@ -91,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+                <div class="navbar-vertical-content flex-grow-1"  style="min-height:0; overflow-y:auto; height:auto !important;">
                     <ul class="navbar-nav flex-column" id="sideNavbar">
 
                         <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
@@ -392,6 +391,8 @@
     </div>
 
     <div th:replace="fragments :: common-js"></div>
+
+
 </body>
 
 </html>

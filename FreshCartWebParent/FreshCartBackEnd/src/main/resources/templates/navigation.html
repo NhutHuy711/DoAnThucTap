@@ -231,7 +231,7 @@
                             </li>
                         </th:block>
 
-                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor')">
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
                             <li class="nav-item">
                                 <a class="nav-link"
                                    th:classappend="${moduleURL != null && (moduleURL == '/promotions' || moduleURL == '/promotions/new') ? 'show' : 'collapsed'}"

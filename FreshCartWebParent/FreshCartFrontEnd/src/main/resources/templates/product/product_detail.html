@@ -70,12 +70,14 @@
                         <div class="mb-4">
                             <div class="d-flex align-items-center">
                                 <div class="rating-stars">
-                                    <th:block th:with="num=${product.averageRating}">
-                                        <span th:each="i : ${#numbers.sequence(1, 5)}">
-                                            <i class="fas fa-star"
-                                               th:style="${i <= num ? 'color: #ffc107' : 'color: #e4e5e9'}">
-                                            </i>
-                                        </span>
+                                    <th:block th:with="r=${product.averageRating != null ? product.averageRating : 0.0}">
+                                      <span th:each="i : ${#numbers.sequence(1,5)}">
+                                        <i class="bi"
+                                           th:classappend="${i <= r} ? ' bi-star-fill'
+                                                           : (${i - r <= 0.5 && i - r > 0} ? ' bi-star-half' : ' bi-star')"
+                                           th:style="${i <= r || (i - r <= 0.5 && i - r > 0)} ? 'color:#ffc107' : 'color:#e4e5e9'">
+                                        </i>
+                                      </span>
                                     </th:block>
                                 </div>
                                 <a href="#" class="ms-2 text-decoration-none" onclick="switchToReviewsTab(); return false;">

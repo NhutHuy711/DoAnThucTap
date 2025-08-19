@@ -31,7 +31,7 @@
                         <p>Welcome back to FreshCart! Enter your email to get started.</p>
                     </div>
                     <!-- Login Form -->
-                    <form method="post" th:action="@{/login}" id="LoginForm" onsubmit="return validateForm()";>
+                    <form method="post" th:action="@{/login}" id="LoginForm" onsubmit="return validateForm()">
 
                         <div class="row g-3">
                             <!-- Email input -->
@@ -122,7 +122,7 @@
             }
         });
     };
-    
+
     function validateForm() {
         let recaptchaResponse = grecaptcha.getResponse();
         if (recaptchaResponse) {
@@ -132,17 +132,23 @@
             return false;
         }
     }
-
+</script>
+<script th:inline="javascript">
+    // Lấy thông báo lỗi từ Spring Security (nếu có)
     var errorMessage = /*[[${session.SPRING_SECURITY_LAST_EXCEPTION != null ? session.SPRING_SECURITY_LAST_EXCEPTION.message : ''}]]*/ '';
-    
-    document.addEventListener('DOMContentLoaded', function() {
+
+    document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('login') && urlParams.get('login') === 'success') {
+
+        // Nếu có ?login=success thì về trang chủ (nếu bạn muốn hành vi này)
+        if (urlParams.get('login') === 'success') {
             window.location.href = contextPath;
         }
-        
+
         /*[# th:if="${param.error}"]*/
-        showErrorMessage(errorMessage);
+        if (errorMessage) {
+            showErrorMessage(errorMessage);
+        }
         /*[/]*/
 
         /*[# th:if="${param.logout}"]*/
@@ -150,5 +156,6 @@
         /*[/]*/
     });
 </script>
+
 </body>
 </html>

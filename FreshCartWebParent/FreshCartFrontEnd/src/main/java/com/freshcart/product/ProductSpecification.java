@@ -79,10 +79,18 @@ public class ProductSpecification {
 
     public static Specification<Product> hasRating(Integer rating) {
         return (root, query, cb) -> {
-            if (rating == null) {
-                return null;
+            if (rating == null) return null;
+
+            var avg = root.get(Product_.averageRating);
+
+            if (rating >= 5) {
+                // 5 sao: lấy >= 5.0
+                return cb.greaterThanOrEqualTo(avg, 5.0f);
             }
-            return cb.equal(root.get(Product_.averageRating), rating);
+            return cb.and(
+                    cb.greaterThanOrEqualTo(avg, rating.floatValue()),
+                    cb.lessThan(avg, rating.floatValue() + 1.0f) // < 5.0 khi rating=4
+            );
         };
     }
 

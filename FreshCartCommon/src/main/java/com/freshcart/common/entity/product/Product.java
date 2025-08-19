@@ -362,7 +362,7 @@ public class Product extends IdBasedEntity {
             "FROM promotions pr " +
             "JOIN promotion_products pp ON pp.promotion_id = pr.id " +
             "WHERE pp.product_id = id " +
-            "  AND pr.enabled = 1 " +                // nếu enabled là BIT(1), so sánh = 1 ok
+            "  AND pr.enabled = 1 " +
             "  AND NOW() BETWEEN pr.start_at AND pr.end_at" +
             ")")
     private Float discountPercent;

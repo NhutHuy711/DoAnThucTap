@@ -478,8 +478,6 @@
 
     </style>
 
-
-
     <script type="text/javascript">
     contextPath = "[[@{/}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
@@ -493,6 +491,15 @@
 <script type="text/javascript" th:src="@{/js/cart.js}"></script>
 <script type="text/javascript" th:src="@{/js/list_brand_categories.js}"></script>
 <!-- <script type="text/javascript" th:src="@{/js/theme-switcher.js}"></script> -->
+    <script th:if="${toastMsg != null}" th:inline="javascript">
+        /*<![CDATA[*/
+        const _msg  = /*[[${toastMsg}]]*/ '';
+        const _type = /*[[${toastType}]]*/ 'info';
+        if (_type === 'error')       showErrorMessage(_msg);
+        else if (_type === 'warning')showWarningMessage(_msg);
+        else                         showSuccessMessage(_msg);
+        /*]]>*/
+    </script>
 
 
 

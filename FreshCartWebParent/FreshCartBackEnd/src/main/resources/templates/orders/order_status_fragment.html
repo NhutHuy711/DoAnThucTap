@@ -3,17 +3,24 @@
 
 <body>
 
-	<div th:fragment="content(statusVar, statusName, iconName)" class="col-3 text-center">
-		<th:block th:if="${statusVar}">
-			<i style="color: #0aad0a" th:class="'fas ' + ${iconName} + ' fa-2x'"></i>
-		</th:block>
-		<th:block th:unless="${statusVar}">
-			<a style="color: gray"
-				th:class="'fas ' + ${iconName} + ' fa-2x linkUpdateStatus'"
-				th:id="'link' + ${statusName} + ${order.id}"
-				th:data-current-status="${order.status}"
-				th:orderId="${order.id}" th:status="${statusName}"
-				th:href="@{'/orders_shipper/update/' + ${order.id} + '/' + ${statusName}}"></a>
-		</th:block>
-	</div>
-	<div th:replace="fragments :: common-js"></div>
+
+<div th:fragment="content(statusVar, statusName, iconName, orderId, orderStatus)" class="col-3 text-center">
+    <th:block th:if="${statusVar}">
+        <i style="color:#0aad0a" th:class="'fas ' + ${iconName} + ' fa-2x'"></i>
+    </th:block>
+
+    <th:block th:unless="${statusVar}">
+        <a href="javascript:void(0)"
+           class="linkUpdateStatus"
+           style="color:gray"
+           th:id="'link' + ${statusName} + ${orderId}"
+           th:attr="data-current-status=${orderStatus},
+                data-order-id=${orderId},
+                data-status=${statusName},
+                data-href=@{/orders_shipper/update/{id}/{status}(id=${orderId}, status=${statusName})}"
+           role="button"
+           aria-label="Update to [[${statusName}]]">
+            <i th:class="'fas ' + ${iconName} + ' fa-2x'"></i>
+        </a>
+    </th:block>
+</div>

@@ -138,12 +138,12 @@
                              data-bs-toggle="tooltip" data-bs-placement="top" title="View details">
                             <i class="bi bi-eye fs-5"></i>
                           </a>
-
-                          <a class="btn btn-light btn-icon-text" th:href="@{'/products/edit/' + ${product.id}}"
+                            <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                          <a class="btn btn-light btn-icon-text" th:href="@{'/products/edit/' + ${product.id} }"
                              data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
                             <i class="bi bi-pencil fs-5"></i>
                           </a>
-
+                            </th:block>
                         </td>
                       </tr>
                     </tbody>

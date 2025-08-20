@@ -80,17 +80,13 @@
 								<!-- Order Status -->
 								<div class="row">
 									<!-- Picked Status -->
-									<div th:replace="orders/order_status_fragment :: content(${order.picked}, 'PICKED', 'fa-people-carry')">
-									</div>
+                                    <div th:replace="orders/order_status_fragment :: content(${order.picked}, 'PICKED', 'fa-people-carry', ${order.id}, ${order.status})"></div>
 									<!-- Shipping Status -->
-									<div th:replace="orders/order_status_fragment :: content(${order.shipping}, 'SHIPPING', 'fa-shipping-fast')">
-									</div>
+                                    <div th:replace="orders/order_status_fragment :: content(${order.shipping}, 'SHIPPING', 'fa-shipping-fast', ${order.id}, ${order.status})"></div>
 									<!-- Delivered Status -->
-									<div th:replace="orders/order_status_fragment :: content(${order.delivered}, 'DELIVERED', 'fa-box-open')">
-									</div>
+                                    <div th:replace="orders/order_status_fragment :: content(${order.delivered}, 'DELIVERED', 'fa-box-open', ${order.id}, ${order.status})"></div>
 									<!-- Returned Status -->
-									<div th:replace="orders/order_status_fragment :: content(${order.returned}, 'RETURNED', 'fa-undo')">
-									</div>
+                                    <div th:replace="orders/order_status_fragment :: content(${order.returned}, 'RETURNED', 'fa-undo', ${order.id}, ${order.status})"></div>
 								</div>
 							</div>
 						</div>

@@ -1,7 +1,6 @@
 package com.freshcart.rasachatbot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.freshcart.product.EmbeddingSearchService;
 import com.freshcart.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -30,10 +30,25 @@ public interface OrderRepository extends SearchRepository<Order, Integer> {
     public Long countById(Integer id);
 
 
-    @Query("SELECT NEW com.freshcart.common.entity.order.Order(o.id, o.orderTime, o.productCost,"
-            + " o.subtotal, o.shippingCost, o.total) FROM Order o WHERE"
-            + " o.orderTime BETWEEN ?1 AND ?2 ORDER BY o.orderTime ASC")
-    public List<Order> findByOrderTimeBetween(Date startTime, Date endTime);
+    @Query("""
+        SELECT NEW com.freshcart.common.entity.order.Order(
+               o.id, o.orderTime, o.productCost, o.subtotal, o.shippingCost, o.total)
+        FROM Order o
+        WHERE o.orderTime BETWEEN ?1 AND ?2
+            AND o.status NOT IN (
+                 com.freshcart.common.entity.order.OrderStatus.CANCELLED,
+                 com.freshcart.common.entity.order.OrderStatus.RETURNED,
+                 com.freshcart.common.entity.order.OrderStatus.REFUNDED
+            )
+            AND (
+                 (o.paymentMethod = com.freshcart.common.entity.order.PaymentMethod.COD
+                      AND o.status = com.freshcart.common.entity.order.OrderStatus.DELIVERED)
+                 OR
+                 (o.paymentMethod = com.freshcart.common.entity.order.PaymentMethod.PAYPAL)
+            )
+        ORDER BY o.orderTime ASC
+        """)
+    List<Order> findByOrderTimeBetween(Date startTime, Date endTime);
 
     @Query("SELECT COALESCE(SUM(od.quantity), 0) FROM OrderDetail od WHERE od.order.id = :orderId AND od.product.id = :productId")
     int getProductQuantityInOrder(@Param("orderId") Integer orderId, @Param("productId") Integer productId);

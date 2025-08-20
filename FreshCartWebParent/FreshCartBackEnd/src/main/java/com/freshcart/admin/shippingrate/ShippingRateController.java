@@ -53,7 +53,7 @@ public class ShippingRateController {
             service.save(rate);
             ra.addFlashAttribute("message", "The shipping rate has been saved successfully.");
         } catch (ShippingRateAlreadyExistsException ex) {
-            ra.addFlashAttribute("message", ex.getMessage());
+            ra.addFlashAttribute("errorMessage", ex.getMessage());
         }
         return defaultRedirectURL;
     }

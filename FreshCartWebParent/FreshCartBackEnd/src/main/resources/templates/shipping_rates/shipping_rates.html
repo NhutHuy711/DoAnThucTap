@@ -88,10 +88,20 @@
 
         $(document).ready(function() {
             var message = "[[${message}]]";
+            var errorMessage = "[[${errorMessage}]]";
+            var warningMessage = "[[${warningMessage}]]";
+
             if (message) {
                 showSuccessMessage(message);
             }
 
+            if (errorMessage) {
+                showErrorMessage(errorMessage);
+            }
+
+            if (warningMessage) {
+                showWarningMessage(warningMessage);
+            }
         });
     </script>
 </body>

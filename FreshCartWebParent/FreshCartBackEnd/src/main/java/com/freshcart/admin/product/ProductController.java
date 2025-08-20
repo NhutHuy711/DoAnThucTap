@@ -108,7 +108,7 @@ public class ProductController {
 
         ProductSaveHelper.saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
 
-        ProductSaveHelper.deleteExtraImagesWeredRemovedOnForm(product);
+        ProductSaveHelper.deleteExtraImagesWeredRemovedOnForm(savedProduct);
 
         ra.addFlashAttribute("message", messageService.getMessage("SUCCESS_PRODUCT"));
 //        ra.addFlashAttribute("message", "The product has been saved successfully.");
